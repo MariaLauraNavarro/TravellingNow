@@ -1,0 +1,29 @@
+Destinos
+{
+  id:1,
+  nombre:" Bariloche"
+  descripción:"Famoso por sus paisajes de montañas y lagos, ideal para esquiar en invierno.
+  precio:1000000
+  imagen:"Bariloche.jpg"
+},
+{
+  id:2,
+  nombre:" Calafate"
+  descripción:"La puerta de entrada al majestuoso Glaciar Perito Moreno"
+  precio:1200000
+  imagen:"calafate.jpg"
+}, 
+{
+  id:3,
+  nombre:" Brasil"
+  descripción:" Playas tropicales,ritmo de carnavaly selva amazonica"
+  precio:2000000
+  imagen:"brazil.png"
+},
+{
+  id:4,
+  nombre:" Playa del Carmen"
+  descripción:" El corazon de la rivera maya, playas de arena blanca y aguas turquesa"
+  precio:2500000
+  imagen:"delcarmen.jpg"
+},

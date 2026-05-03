@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import{ Destino, Destinos } from '../../services/destinos';
 
 @Component({
   selector: 'app-destiny',
@@ -6,4 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './destiny.html',
   styleUrl: './destiny.css',
 })
-export class Destiny {}
+export class Destiny {
+
+  destinos: Destino[] = [];
+
+  constructor(private destino: Destinos) {
+    this.destinos = this.destino.getDestinos();
+  }
+
+
+}
