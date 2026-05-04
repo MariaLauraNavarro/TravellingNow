@@ -64,14 +64,14 @@ export class Destinos {
   nombre:"Italia",
   descripcion:" ",
   precio:2000000,
-  imagen:"italia.jpg",
+  imagen:"/italia.jpg",
 },
 {
   id:8,
   nombre:"Perú",
   descripcion:" ",
   precio:2500000,
-  imagen:"peru.jpg",
+  imagen:"/peru.jpg",
 }
     
   ];
