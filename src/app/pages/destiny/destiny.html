@@ -1,16 +1,8 @@
 <div class="contenedor-destinos">
   
   @for (d of destinos; track d.id) {
+   <app-item-destiny [destino]="d" ></app-item-destiny> 
     
-    <div class="card">
-
-      <img [src]="d.imagen" [alt]="d.nombre">
-
-      <h3>{{ d.nombre }}</h3>
-      <p>{{ d.descripcion || 'Hermoso destino turístico' }}</p>
-      <span>${{ d.precio }}</span>
-
-    </div>
   }
 
 </div>

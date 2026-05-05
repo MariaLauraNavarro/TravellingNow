@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {  Destino } from '../../services/destinos';
 import { Destinos } from '../../services/destinos';
+import { ItemDestiny } from "./item-destiny/item-destiny";
 
 
 @Component({
-  imports: [],
+  imports: [ItemDestiny],
   templateUrl: './destiny.html',
   styleUrl: './destiny.css',
 })
