@@ -6,14 +6,16 @@ import { Destiny } from './pages/destiny/destiny';
 import { Contact } from './pages/contact/contact';
 import { Login } from './pages/login/login';
 import { Notfound } from './pages/notfound/notfound';
+import{ Registro } from './pages/registro/registro';
 
 export const routes: Routes = [
 
  {path: '', component: Principal},
  {path: 'Ingresar', component: Login},
+ {path:'registro', component:Registro},
  {path: 'home', component:Home},
  {path: 'Conocenos', component:About},
  {path: 'Destinos', component:Destiny},
  {path: 'Contactanos', component:Contact},
- {path: '**', component:Notfound}
+ {path: '**', component:Notfound},
 ];

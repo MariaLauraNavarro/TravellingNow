@@ -1,4 +1,55 @@
 <div class="login-container">
+    <div class="box">
+        <h2>Iniciar Sesión</h2>
+
+        <!-- Alerta General -->
+        @if (errorMessage && !emailError && !passwordError) {
+            <div class="alert alert-error">
+                {{ errorMessage }}
+            </div>
+        }
+
+        <div class="input" [class.error]="emailError">
+            <label>Email</label>
+            <input 
+              type="email"
+              placeholder="Ingrese su email"
+              [(ngModel)]="myUser.email"
+              (input)="limpiarErrorEmail()">
+            
+            @if (emailError) {
+                <span class="error-message">Formato inválido o campo requerido</span>
+            }
+        </div>
+
+        <div class="input" [class.error]="passwordError">
+            <label>Contraseña</label>
+            <input 
+              type="password"
+              placeholder="Ingrese su contraseña"
+              [(ngModel)]="myUser.contrasena"
+              (input)="limpiarErrorPassword()">
+            
+            @if (passwordError) {
+                <span class="error-message">Mínimo 8 caracteres o campo requerido</span>
+            }
+        </div>
+
+        <button class="btn-ingresar" (click)="ingresar()">
+            Ingresar
+        </button>
+
+        <div class="textobajo">
+            <h3>¿No tenés cuenta?</h3>
+            <button class="btn-registrarse" routerLink="/registro">
+                Registrarse
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="login-container">
  
   <div class="box">
     <h2>Iniciar Sesión</h2>
@@ -23,4 +74,4 @@
     <a [routerLink]="'/registro'">Crear usuario</a>
   </div>
  
-</div>
+</div>-->

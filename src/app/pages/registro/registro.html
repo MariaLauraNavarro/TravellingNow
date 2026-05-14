@@ -1,0 +1,85 @@
+<div class="registro-container">
+    <div class="box">
+        <h2>Crear Cuenta</h2>
+
+        <!-- Alerta General -->
+        @if (errorMessage && !nombreError && !emailError && !passwordError && !confirmError) {
+            <div class="alert alert-error">
+                {{ errorMessage }}
+            </div>
+        }
+
+        @if (successMessage) {
+            <div class="alert alert-success">
+                {{ successMessage }}
+            </div>
+        }
+
+        <!-- Nombre -->
+        <div class="input" [class.error]="nombreError">
+            <label>Nombre completo</label>
+            <input 
+              type="text"
+              placeholder="Ingrese su nombre"
+              [(ngModel)]="myUser.nombre"
+              (input)="limpiarError('nombre')">
+            
+            @if (nombreError) {
+                <span class="error-message">El nombre es obligatorio</span>
+            }
+        </div>
+
+        <!-- Email -->
+        <div class="input" [class.error]="emailError">
+            <label>Email</label>
+            <input 
+              type="email"
+              placeholder="Ingrese su email"
+              [(ngModel)]="myUser.email"
+              (input)="limpiarError('email')">
+            
+            @if (emailError) {
+                <span class="error-message">{{ errorMessage }}</span>
+            }
+        </div>
+
+        <!-- Contraseña -->
+        <div class="input" [class.error]="passwordError">
+            <label>Contraseña</label>
+            <input 
+              type="password"
+              placeholder="Mínimo 8 caracteres"
+              [(ngModel)]="myUser.contrasena"
+              (input)="limpiarError('password')">
+            
+            @if (passwordError) {
+                <span class="error-message">Mínimo 8 caracteres</span>
+            }
+        </div>
+
+        <!-- Confirmar Contraseña -->
+        <div class="input" [class.error]="confirmError">
+            <label>Confirmar contraseña</label>
+            <input 
+              type="password"
+              placeholder="Repita su contraseña"
+              [(ngModel)]="confirmPassword"
+              (input)="limpiarError('confirm')">
+            
+            @if (confirmError) {
+                <span class="error-message">Las contraseñas no coinciden</span>
+            }
+        </div>
+
+        <button class="btn-registrar" (click)="registrar()">
+            Registrarse
+        </button>
+
+        <div class="textobajo">
+            <h3>¿Ya tenés cuenta?</h3>
+            <button class="btn-iniciar" routerLink="/login">
+                Iniciar Sesión
+            </button>
+        </div>
+    </div>
+</div>
