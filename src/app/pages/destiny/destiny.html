@@ -1,10 +1,38 @@
-<app-header></app-header>
-<div class="contenedor-destinos">
-  
-  @for (d of destinos; track d.id) {
-   <app-item-destiny [destino]="d" ></app-item-destiny> 
-    
-  }
 
+<div class="buscador-container">
+  <input 
+    type="text" 
+    [(ngModel)]="textoBusqueda" 
+    (input)="filtrarDestinos()"
+    placeholder="🔍 Buscar destino..."
+    class="buscador"
+  >
 </div>
+
+<!-- Lista de destinos -->
+<div class="contenedor-destinos">
+  @for (d of destinosFiltrados; track d.id) {
+    <app-item-destiny [destino]="d"></app-item-destiny>
+  }
+  
+  <!-- Mensaje si no hay resultados -->
+  @if (destinosFiltrados.length === 0) {
+    <p class="sin-resultados">No se encontraron destinos 😢</p>
+  }
+</div>
+
 <app-footer></app-footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,9 +16,9 @@ export class UserService {
   // Lista de usuarios con datos iniciales
   private Usuarios: User[] = [
     {
-      nombre: 'Alan',
-      email: 'a1@gmail.com',
-      contrasena: '1234',
+      nombre: 'María Laura Navarro',
+      email: 'marialaura1375@gmail.com',
+      contrasena: '24909847',
       id: 1,
       rol: 'admin'
     }

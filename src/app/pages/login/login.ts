@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { User, UserService } from '../../services/user-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router,RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +19,8 @@ export class Login {
   public emailError: boolean = false;
   public passwordError: boolean = false;
 
-  constructor(public userService: UserService) {}
-
+  constructor(public userService: UserService,
+  private router: Router) {}
   ingresar(): void {
     // 1. Limpiar errores previos
     this.errorMessage = '';
@@ -59,6 +59,7 @@ export class Login {
     if (usuarioValido) {
       // Login exitoso
       console.log('Usuario logueado:', this.userService.UsuarioLogueado);
+      this.router.navigate(['/home']); // Redirige a la página principal después del login exitoso
       // Aquí podrías redirigir, ej: this.router.navigate(['/home']);
     } else {
       // Credenciales incorrectas (pero el formato estaba bien)

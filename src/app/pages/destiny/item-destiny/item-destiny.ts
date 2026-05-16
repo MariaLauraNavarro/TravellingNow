@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Destino } from '../../../services/destinos';
 
+
 @Component({
   selector: 'app-item-destiny',
   imports: [],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { User, UserService } from '../../services/user-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router,RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -22,8 +22,8 @@ export class Registro {
   public passwordError: boolean = false;
   public confirmError: boolean = false;
 
-  constructor(public userService: UserService) {}
-
+  constructor(public userService: UserService,
+  private router: Router) {}
   registrar(): void {
     // Limpiar mensajes previos
     this.errorMessage = '';
@@ -109,7 +109,7 @@ export class Registro {
       
       // Redirigir al login después de 2 segundos
       setTimeout(() => {
-        // Aquí podrías usar router.navigate(['/login']) si lo inyectas
+        this.router.navigate(['/Ingresar']);// Aquí podrías usar router.navigate(['/login']) si lo inyectas
       }, 2000);
       
     } catch (error) {
