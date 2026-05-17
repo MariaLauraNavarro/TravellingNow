@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { Login } from '../../pages/login/login';
+//import { Login } from '../../pages/login/login';
 import { RouterModule } from "@angular/router";
-import { Footer } from '../footer/footer';
+//import { Footer } from '../footer/footer';
+
+import { Login } from '../../pages/login/login';
+
 
 @Component({
   selector: 'app-principal',
-  imports: [ RouterModule, Footer],
+  imports: [ RouterModule, ],
   templateUrl: './principal.html',
   styleUrl: './principal.css',
+   
+  
 })
 export class Principal {}
