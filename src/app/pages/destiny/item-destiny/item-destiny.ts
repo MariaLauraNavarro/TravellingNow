@@ -12,5 +12,8 @@ export class ItemDestiny {
 @Input()
 
   public destino ?:Destino;   
-
+ mostrarDescripcion: boolean = false;
+  toggleDescripcion() {
+    this.mostrarDescripcion = !this.mostrarDescripcion;
+  }
 }

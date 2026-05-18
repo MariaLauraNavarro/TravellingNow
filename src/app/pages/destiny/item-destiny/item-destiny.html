@@ -4,7 +4,11 @@
 <img [src]="this.destino ?.imagen" [alt]="this.destino?.nombre">
 
     <h3>{{ this.destino?.nombre }}</h3>
-    <p>{{ this.destino?.descripcion || 'Hermoso destino turístico' }}</p>
+    @if (mostrarDescripcion) {
+      <p>{{ this.destino?.descripcion || 'Hermoso destino turístico' }}</p>
+    }
     <span>${{ this.destino?.precio }}</span>
-
+    <button (click)="toggleDescripcion()">
+      {{ mostrarDescripcion ? 'Ver menos' : 'Mostrar Descripción' }}
+    </button>
     </div>

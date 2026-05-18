@@ -4,18 +4,19 @@ import { Destinos } from '../../services/destinos';
 import { ItemDestiny } from "./item-destiny/item-destiny";
 import { Footer } from '../../components/footer/footer';
 import { FormsModule } from '@angular/forms';
+import { Header } from '../../components/header/header';
 
 
 
 @Component({
-  imports:[ItemDestiny,Footer,FormsModule],
+  imports:[ItemDestiny,Footer,FormsModule,Header],
   templateUrl: './destiny.html',
   styleUrl: './destiny.css',
 })
 export class Destiny {
 
   destinos: Destino[] = [];
-  destinosFiltrados: Destino[] = [];// necesariapara el html
+  destinosFiltrados: Destino[] = [];// necesaria para el html
   textoBusqueda: string = '';// necesaria para el input
 
   constructor(private destinoService: Destinos) {
