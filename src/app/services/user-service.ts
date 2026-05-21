@@ -78,49 +78,19 @@ export class UserService {
   getAllUsers(): User[] {
     return [...this.Usuarios];
   }
-}
+  eliminarUsuario(id: number): void {
+  this.Usuarios = this.Usuarios.filter(u => u.id !== id);
+  }
 
-/*import { Injectable } from '@angular/core';
+  editarUsuario(usuarioEditado: User): void {
 
-export interface User{
-  nombre:string;
-  email:string;
-  contrasena:string;
-  id:number;
-  rol:string;
-  
-}
-
-@Injectable({
-  providedIn: 'root',
-})
-
-
-export class UserService {
- private Usuarios:User[]=[{
-nombre:' Alan',
-email:'a1@gmail.com',
-contrasena:'1234',
-id:1,
-rol:'admin'
- }
-
-
-
-];
-  public UsuarioLogueado: User | undefined;
-
-  validarUsuario(email:string, contrasena:string): boolean {
-
-    this.UsuarioLogueado = this.Usuarios.find(
-      u => u.contrasena == contrasena && u.email == email
+    const index = this.Usuarios.findIndex(
+      u => u.id === usuarioEditado.id
     );
 
-    return this.UsuarioLogueado != undefined;
+    if (index !== -1) {
+      this.Usuarios[index] = usuarioEditado;
+    }
   }
+}
 
-  registrarUsuario(usuario: User): void {
-    this.Usuarios.push(usuario);
-  }
-
-}*/

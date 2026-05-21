@@ -1,0 +1,55 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { User, UserService } from '../../services/user-service';
+
+@Component({
+  selector: 'app-admin-usuarios',
+  imports: [FormsModule],
+  templateUrl: './admin-usuarios.html',
+  styleUrl: './admin-usuarios.css',
+})
+export class AdminUsuarios {
+  usuarios: User[] = [];
+
+  usuarioEditando: User | null = null;
+
+  constructor(private userService: UserService) {
+
+    this.usuarios = this.userService.getAllUsers();
+
+  }
+
+  eliminar(id: number): void {
+
+    this.userService.eliminarUsuario(id);
+
+    this.usuarios = this.userService.getAllUsers();
+
+  }
+
+  editar(usuario: User): void {
+
+    this.usuarioEditando = { ...usuario };
+
+  }
+
+  guardarCambios(): void {
+
+    if (this.usuarioEditando) {
+
+      this.userService.editarUsuario(this.usuarioEditando);
+
+      this.usuarios = this.userService.getAllUsers();
+
+      this.usuarioEditando = null;
+    }
+
+  }
+
+  cancelar(): void {
+
+    this.usuarioEditando = null;
+
+  }
+
+}

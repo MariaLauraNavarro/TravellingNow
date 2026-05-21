@@ -1,0 +1,43 @@
+<h2>Administrar Usuarios</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (usuario of usuarios; track usuario.id) {
+      <tr>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.rol }}</td>
+        <td>
+          <button (click)="editar(usuario)">Editar</button>
+          <button class="eliminar" (click)="eliminar(usuario.id)">Eliminar</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (usuarioEditando) {
+  <div class="formulario-edicion">
+    <h3>Editar Usuario</h3>
+
+    <input type="text" [(ngModel)]="usuarioEditando.nombre" placeholder="Nombre">
+    <input type="email" [(ngModel)]="usuarioEditando.email" placeholder="Email">
+
+    <select [(ngModel)]="usuarioEditando.rol">
+      <option value="admin">Admin</option>
+      <option value="user">Usuario</option>
+    </select>
+
+    <button (click)="guardarCambios()">Guardar cambios</button>
+    <button (click)="cancelar()">Cancelar</button>
+  </div>
+}

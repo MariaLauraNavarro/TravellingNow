@@ -5,7 +5,9 @@
         <a routerLink="/Destinos">Destinos</a>
         <a routerLink="/Contactanos">Contactanos</a>
         <a routerLink="/Conocenos">Conocenos</a>
-        <a routerLink="/Ingresar">Ingresar</a>
+        @if (userService.UsuarioLogueado?.rol === 'admin') {
+        <a routerLink="/admin-usuarios">Admin Usuarios</a>
+    }
        
         
     </nav>

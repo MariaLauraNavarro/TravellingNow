@@ -1,9 +1,18 @@
+:host {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .contenedor-destinos {
+  flex:1;
+ 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  align-items: flex-start;
+
+  gap: 25px;
+  padding: 40px 20px;
 }
 
 .card {
