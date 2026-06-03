@@ -1,14 +1,19 @@
 <header>
     <nav>
-        
-        <a routerLink="/">Inicio</a>
-        <a routerLink="/Destinos">Destinos</a>
-        <a routerLink="/Contactanos">Contactanos</a>
-        <a routerLink="/Conocenos">Conocenos</a>
+        <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{exact:true}">Inicio</a>
+
+        <a routerLink="/Destinos" routerLinkActive="activo">Destinos</a>
+
+        <a routerLink="/Contactanos" routerLinkActive="activo">Contactanos</a>
+
+        <a routerLink="/Conocenos" routerLinkActive="activo">Conocenos</a>
+
         @if (userService.UsuarioLogueado?.rol === 'admin') {
-        <a routerLink="/admin-usuarios">Admin Usuarios</a>
-    }
+        <a routerLink="/admin-usuarios" routerLinkActive="activo">
+        Admin Usuarios</a>
+}
        
+        
         
     </nav>
 </header>

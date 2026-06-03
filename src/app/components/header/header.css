@@ -13,3 +13,9 @@ nav a:hover{
     color: black;
     border-radius: 20px;
 }
+.activo {
+  background-color: #4e19e1;
+  color: white !important;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
