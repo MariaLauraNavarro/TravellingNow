@@ -23,24 +23,28 @@ nav a:hover{
     align-items: center;
     height: 80vh;
 }
-h1{
-    position: relative;
-    color: white;
-    font-size: 70px;
+h1 {
+  position: absolute;
+  color: white;
+  font-size: 70px;
+  font-weight: bold;
 
-    animation: aparecerCentro 3s ease-out forwards;
+  opacity: 0;
+  animation: aparecerTitulo 3s ease forwards;
 }
 
-@keyframes aparecerCentro {
+@keyframes aparecerTitulo {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
 
-    0%{
-        transform: translateX(-800px);
-        opacity: 0;
-    }
+  50% {
+    opacity: 0.5;
+  }
 
-    100%{
-        transform: translateX(0);
-        opacity: 1;
-    }
-
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
