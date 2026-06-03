@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User, UserService } from '../../services/user-service';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-admin-usuarios',
-  imports: [FormsModule],
+  imports: [FormsModule, Header],
   templateUrl: './admin-usuarios.html',
   styleUrl: './admin-usuarios.css',
 })

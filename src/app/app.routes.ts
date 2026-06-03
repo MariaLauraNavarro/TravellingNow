@@ -1,3 +1,4 @@
+import { adminGuard } from './guards/admin-guard';
 import { Routes } from '@angular/router';
 import { Principal } from './components/principal/principal';
 import { Home } from './pages/home/home';
@@ -20,7 +21,9 @@ export const routes: Routes = [
  {path: 'Conocenos', component:About},
  {path: 'Destinos', component:Destiny},
  {path: 'Contactanos', component:Contact},
- { path: 'admin-usuarios', component: AdminUsuarios },
+ {path: 'admin-usuarios',component: AdminUsuarios,
+    canActivate: [adminGuard]
+},
  {path: '**', component:Notfound},
  
 ];
