@@ -81,12 +81,44 @@ select {
   border-radius: 8px;
   font-size: 15px;
 }
+.formulario-edicion{
+    width: 400px;
+    margin: 40px auto;
 
-.formulario-edicion button {
-  background-color: #28a745;
-  color: white;
+    background: rgba(255,255,255,0.95);
+
+    padding: 25px;
+    border-radius: 15px;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.contacto-banner{
+    min-height: 100vh;
+    background-image: url('/img/contacto.jpg');
+    background-size: cover;
+    background-position: center;
+}
+button.agregar{
+    background-color: white !important;
+    color: black !important;
+
+    border: 2px solid white !important;
+    border-radius: 20px !important;
+
+    padding: 10px 20px !important;
+    margin: 15px auto 25px auto !important;
+    display: block !important;
+
+    font-size: 15px !important;
+    font-weight: bold !important;
 }
 
-.formulario-edicion button:last-child {
-  background-color: #6c757d;
+button.agregar:hover{
+    background-color: black !important;
+    color: white !important;
+    transform: scale(1.05);
 }

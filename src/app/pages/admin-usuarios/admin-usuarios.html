@@ -1,6 +1,10 @@
 <app-header></app-header>
-<h2>Administrar Usuarios</h2>
 
+
+<h2>Administrar Usuarios</h2>
+<button class="agregar" (click)="nuevoUsuario()">
+ Agregar Usuario
+</button>
 <table>
   <thead>
     <tr>
@@ -28,10 +32,26 @@
 
 @if (usuarioEditando) {
   <div class="formulario-edicion">
-    <h3>Editar Usuario</h3>
 
-    <input type="text" [(ngModel)]="usuarioEditando.nombre" placeholder="Nombre">
-    <input type="email" [(ngModel)]="usuarioEditando.email" placeholder="Email">
+    @if (usuarioEditando.id === 0) {
+      <h3>Agregar Usuario</h3>
+    } @else {
+      <h3>Editar Usuario</h3>
+    }
+
+    <input
+      type="text"
+      [(ngModel)]="usuarioEditando.nombre"
+      placeholder="Nombre">
+
+    <input
+      type="email"
+      [(ngModel)]="usuarioEditando.email"
+      placeholder="Email">
+    <input
+      type="password"
+      [(ngModel)]="usuarioEditando.contrasena"
+      placeholder="Contraseña">
 
     <select [(ngModel)]="usuarioEditando.rol">
       <option value="admin">Admin</option>
@@ -40,5 +60,6 @@
 
     <button (click)="guardarCambios()">Guardar cambios</button>
     <button (click)="cancelar()">Cancelar</button>
+
   </div>
 }

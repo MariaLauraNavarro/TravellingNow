@@ -33,19 +33,34 @@ export class AdminUsuarios {
     this.usuarioEditando = { ...usuario };
 
   }
+  nuevoUsuario(): void {
 
-  guardarCambios(): void {
+  this.usuarioEditando = {
+    id: 0,
+    nombre: '',
+    email: '',
+    contrasena: '',
+    rol: 'user'
+  };
 
-    if (this.usuarioEditando) {
+}
+   guardarCambios(): void {
 
+  if (this.usuarioEditando) {
+
+    if (this.usuarioEditando.id === 0) {
+      this.userService.registrarUsuario(this.usuarioEditando);
+    } else {
       this.userService.editarUsuario(this.usuarioEditando);
-
-      this.usuarios = this.userService.getAllUsers();
-
-      this.usuarioEditando = null;
     }
 
+    this.usuarios = this.userService.getAllUsers();
+
+    this.usuarioEditando = null;
   }
+
+}
+ 
 
   cancelar(): void {
 
