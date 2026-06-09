@@ -136,4 +136,11 @@ export class Destinos {
   getDestinos(): Destino[] {
     return this.destinos;
   }
+  editarPrecioDestino(id: number, nuevoPrecio: number): void {
+  const destino = this.destinos.find(d => d.id === id);
+
+  if (destino) {
+    destino.precio = nuevoPrecio;
+  }
+}
 }

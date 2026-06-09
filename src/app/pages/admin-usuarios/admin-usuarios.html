@@ -63,3 +63,34 @@
 
   </div>
 }
+   <h2>Administrar Precios de Destinos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Destino</th>
+      <th>Precio</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (destino of destinos; track destino.id) {
+      <tr>
+        <td>{{ destino.nombre }}</td>
+
+        <td>
+          <input
+            type="number"
+            [(ngModel)]="destino.precio">
+        </td>
+
+        <td>
+          <button (click)="cambiarPrecio(destino)">
+            Guardar Precio
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
