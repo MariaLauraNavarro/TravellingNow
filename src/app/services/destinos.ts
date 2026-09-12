@@ -141,6 +141,9 @@ export class Destinos {
   getDestinosApi(): Observable<Destino[]> {
    return this.http.get<Destino[]>(this.apiUrl);
   }
+  agregarDestinoApi(destino: Omit<Destino, 'id'>): Observable<Destino> {//angular manda  nombre....pero no manda id, por eso usamos Omit para omitir el id, xq el backend lo crea solos
+  return this.http.post<Destino>(this.apiUrl, destino);//manda un post a http://localhost:3000/destinos con el destino que le pasamos
+}
 
   editarPrecioDestino(id: number, nuevoPrecio: number): void {
   const destino = this.destinos.find(d => d.id === id);

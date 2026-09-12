@@ -30,7 +30,15 @@ constructor(private destinoService: Destinos) {
     }
   });
 }
- 
+agregarDestino() {
+  const nuevoDestino = {// no pongo id porq lo genera express, y el id es autoincremental
+    nombre: 'España, Madrid',
+    descripcion: 'Madrid es la capital de España, conocida por su cultura, arquitectura y gastronomía.',
+    precio: 2300000,
+    imagen: '/img/madrid.jpg'
+  };
+  this.destinoService.agregarDestinoApi(nuevoDestino).subscribe();
+}
 // Método para filtrar destinos según el texto de búsqueda
   filtrarDestinos() {
    if ( this.textoBusqueda.trim() === '') {

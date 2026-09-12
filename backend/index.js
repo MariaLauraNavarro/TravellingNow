@@ -4,6 +4,7 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 const PORT = 3000;
 
@@ -142,6 +143,43 @@ app.get("/destinos/:id", (req, res) => {
   } else {
     res.status(404).json({ mensaje: "Destino no encontrado" });
   }
+});
+app.post("/destinos", (req, res) => {
+  console.log(req.body);
+
+  const nuevoDestino = {
+  id: destinos.length + 1,
+  ...req.body
+};
+  destinos.push(nuevoDestino);    
+  res.status(201).json(nuevoDestino);
+});
+
+app.put("/destinos/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const indice = destinos.findIndex(d => d.id === id);
+
+  if (indice === -1) {
+    return res.status(404).json({ mensaje: "Destino no encontrado" });
+  }
+   destinos[indice] = {
+    ...destinos[indice],
+    ...req.body,
+     id: id
+  };
+  res.json(destinos[indice]);
+});
+
+app.delete("/destinos/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const indice = destinos.findIndex(d => d.id === id);
+
+  if (indice === -1) {
+    return res.status(404).json({ mensaje: "Destino no encontrado" });
+  }
+  const destinoEliminado = destinos.splice(indice, 1);// elimina elemento del array en la posicion encontrada
+  
+  res.json(destinoEliminado[0]);
 });
 
 app.listen(PORT, () => {

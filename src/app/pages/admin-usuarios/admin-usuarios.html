@@ -65,6 +65,40 @@
 }
    <h2>Administrar Precios de Destinos</h2>
 
+<button class="agregar" (click)="nuevoDestino()">
+  Agregar Destino
+</button>
+@if (destinoEditando) {
+  <div class="formulario-edicion">
+    <h3>Agregar Destino</h3>
+
+    <input
+      type="text"
+      [(ngModel)]="destinoEditando.nombre"
+      placeholder="Nombre del destino">
+
+    <textarea
+       [(ngModel)]="destinoEditando.descripcion"
+       placeholder="Descripción del destino">
+    </textarea>
+    <input
+       type="number"
+       [(ngModel)]="destinoEditando.precio"
+       placeholder="Precio">
+
+    <input
+       type="text"
+       [(ngModel)]="destinoEditando.imagen"
+       placeholder="Ruta de la imagen"> 
+
+    <button (click)="guardarDestino()">
+       Guardar Destino
+    </button>
+
+  </div>
+}
+
+
 <table>
   <thead>
     <tr>
