@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Destino {
   id: number;
@@ -15,6 +16,7 @@ export interface Destino {
 
 export class Destinos {
 
+  private apiUrl = 'http://localhost:3000/destinos';
  
   private destinos: Destino[] = [
   {
@@ -131,11 +133,15 @@ export class Destinos {
 }                 
   ];
 
-   constructor() { } 
+   constructor(private http: HttpClient) { }
 
   getDestinos(): Destino[] {
     return this.destinos;
   }
+  getDestinosApi(): Observable<Destino[]> {
+   return this.http.get<Destino[]>(this.apiUrl);
+  }
+
   editarPrecioDestino(id: number, nuevoPrecio: number): void {
   const destino = this.destinos.find(d => d.id === id);
 

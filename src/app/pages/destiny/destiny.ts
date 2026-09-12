@@ -18,11 +18,19 @@ export class Destiny {
   destinos: Destino[] = [];
   destinosFiltrados: Destino[] = [];// necesaria para el html
   textoBusqueda: string = '';// necesaria para el input
-
-  constructor(private destinoService: Destinos) {
-    this.destinos = this.destinoService.getDestinos();
-    this.destinosFiltrados = this.destinos; // Inicialmente mostrar todos los destinos
-  }
+  
+constructor(private destinoService: Destinos) {
+  this.destinoService.getDestinosApi().subscribe({
+    next: (datos) => {
+      this.destinos = datos;
+      this.destinosFiltrados = datos;
+    },
+    error: (error) => {
+      console.error('Error al obtener los destinos:', error);
+    }
+  });
+}
+ 
 // Método para filtrar destinos según el texto de búsqueda
   filtrarDestinos() {
    if ( this.textoBusqueda.trim() === '') {
