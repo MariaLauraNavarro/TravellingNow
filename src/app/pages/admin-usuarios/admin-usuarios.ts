@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+//import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User, UserService } from '../../services/user-service';
 import { Header } from '../../components/header/header';
@@ -19,13 +20,15 @@ export class AdminUsuarios {
 
   constructor(
     private userService: UserService,
-    private destinosService: Destinos
+    private destinosService: Destinos,
+    private cdr: ChangeDetectorRef
   ) {
     this.usuarios = this.userService.getAllUsers();
     this.destinosService.getDestinosApi().subscribe({
 
       next: (datos) => {
        this.destinos = datos;
+       this.cdr.detectChanges();
   },
   error: (error) => {
     console.error('Error al obtener los destinos:', error);
@@ -69,8 +72,19 @@ export class AdminUsuarios {
            precio: this.destinoEditando.precio,
            imagen: this.destinoEditando.imagen
         };
-        this.destinosService.agregarDestinoApi(nuevoDestino).subscribe();
-     }
+        this.destinosService.agregarDestinoApi(nuevoDestino).subscribe({
+         next: (destinoCreado) => {
+          console.log('Destino creado recibido en Angular:', destinoCreado);
+
+          this.destinos = [...this.destinos, destinoCreado];
+          this.destinoEditando = null;
+
+          this.cdr.detectChanges();// fuerzo a Angular aactualizar la vista inmediatamente
+
+          console.log('destinoEditando después de guardar:', this.destinoEditando);
+         }
+    });
+   }
 }
 
 
@@ -86,10 +100,22 @@ export class AdminUsuarios {
       this.usuarioEditando = null;
     }
   }
-
   cambiarPrecio(destino: Destino): void {
-    this.destinosService.editarPrecioDestino(destino.id, destino.precio);
-    alert('Precio actualizado correctamente');
+   this.destinosService.editarDestinoApi(destino.id, {
+    precio: destino.precio
+   }).subscribe({
+     next: () => {
+      alert('Precio actualizado correctamente');
+     }
+   });
+  }
+  eliminarDestino(id: number): void {
+  this.destinosService.eliminarDestinoApi(id).subscribe({
+    next: () => {
+      this.destinos = this.destinos.filter(destino => destino.id !== id);
+      this.cdr.detectChanges();
+    }
+  });
   }
 
   cancelar(): void {
