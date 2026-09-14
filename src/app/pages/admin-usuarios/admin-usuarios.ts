@@ -23,17 +23,18 @@ export class AdminUsuarios {
     private destinosService: Destinos,
     private cdr: ChangeDetectorRef
   ) {
-    this.usuarios = this.userService.getAllUsers();
-    this.destinosService.getDestinosApi().subscribe({
+    this.usuarios = this.userService.getAllUsers(); 
 
-      next: (datos) => {
-       this.destinos = datos;
+    this.destinosService.getDestinosFirestore()
+
+      .then( (datos) => {
+       this.destinos = datos as Destino[];
        this.cdr.detectChanges();
-  },
-  error: (error) => {
-    console.error('Error al obtener los destinos:', error);
-  }
-});
+  })
+  .catch( (error) => {
+    console.error('Error al obtener los destinos de Firestore:', error);
+  });
+
   }
 
   eliminar(id: number): void {
@@ -63,29 +64,33 @@ export class AdminUsuarios {
     imagen: ''
   };
 }
-    guardarDestino(): void {
-     if (this.destinoEditando) {// evita guardar sino hay un destino en edición
+ guardarDestino(): void {
+  if (this.destinoEditando) {
 
-        const nuevoDestino = {
-           nombre: this.destinoEditando.nombre,
-           descripcion: this.destinoEditando.descripcion,
-           precio: this.destinoEditando.precio,
-           imagen: this.destinoEditando.imagen
-        };
-        this.destinosService.agregarDestinoApi(nuevoDestino).subscribe({
-         next: (destinoCreado) => {
-          console.log('Destino creado recibido en Angular:', destinoCreado);
+    const nuevoDestino = {
+      nombre: this.destinoEditando.nombre,
+      descripcion: this.destinoEditando.descripcion,
+      precio: this.destinoEditando.precio,
+      imagen: this.destinoEditando.imagen
+    };
 
-          this.destinos = [...this.destinos, destinoCreado];
-          this.destinoEditando = null;
+    this.destinosService.agregarDestinoFirestore(nuevoDestino)
+      .then((destinoCreado) => {
 
-          this.cdr.detectChanges();// fuerzo a Angular aactualizar la vista inmediatamente
+        this.destinos = [
+          ...this.destinos,
+          destinoCreado
+        ];
 
-          console.log('destinoEditando después de guardar:', this.destinoEditando);
-         }
-    });
-   }
-}
+        this.destinoEditando = null;
+
+        this.cdr.detectChanges();
+      })
+      .catch((error) => {
+        console.error('Error al agregar destino en Firestore:', error);
+      });
+  }
+}   
 
 
   guardarCambios(): void {
@@ -101,22 +106,28 @@ export class AdminUsuarios {
     }
   }
   cambiarPrecio(destino: Destino): void {
-   this.destinosService.editarDestinoApi(destino.id, {
-    precio: destino.precio
-   }).subscribe({
-     next: () => {
+  this.destinosService
+    .editarPrecioFirestore(String(destino.id), destino.precio)
+    .then(() => {
       alert('Precio actualizado correctamente');
-     }
-   });
-  }
-  eliminarDestino(id: number): void {
-  this.destinosService.eliminarDestinoApi(id).subscribe({
-    next: () => {
-      this.destinos = this.destinos.filter(destino => destino.id !== id);
+    })
+    .catch((error) => {
+      console.error('Error al actualizar el precio en Firestore:', error);
+    });
+}
+  eliminarDestino(id: number | string): void {
+  this.destinosService.eliminarDestinoFirestore(String(id))
+    .then(() => {
+      this.destinos = this.destinos.filter(
+        destino => String(destino.id) !== String(id)
+      );
+
       this.cdr.detectChanges();
-    }
-  });
-  }
+    })
+    .catch((error) => {
+      console.error('Error al eliminar destino de Firestore:', error);
+    });
+}
 
   cancelar(): void {
     this.usuarioEditando = null;

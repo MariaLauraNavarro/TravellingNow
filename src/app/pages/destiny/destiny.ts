@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {  Destino } from '../../services/destinos';
 import { Destinos } from '../../services/destinos';
 import { ItemDestiny } from "./item-destiny/item-destiny";
@@ -19,16 +19,22 @@ export class Destiny {
   destinosFiltrados: Destino[] = [];// necesaria para el html
   textoBusqueda: string = '';// necesaria para el input
   
-constructor(private destinoService: Destinos) {
-  this.destinoService.getDestinosApi().subscribe({
-    next: (datos) => {
-      this.destinos = datos;
-      this.destinosFiltrados = datos;
-    },
-    error: (error) => {
-      console.error('Error al obtener los destinos:', error);
-    }
-  });
+  constructor(
+  private destinoService: Destinos,
+  private cdr: ChangeDetectorRef
+) {
+
+  this.destinoService.getDestinosFirestore()
+    .then((datos) => {
+      this.destinos = datos as Destino[];
+      this.destinosFiltrados = this.destinos;
+      
+      this.cdr.detectChanges(); // Forzar la detección de cambios
+    })
+    .catch((error) => {
+      console.error('Error al obtener los destinos de Firestore:', error);
+    });
+
 }
 agregarDestino() {
   const nuevoDestino = {// no pongo id porq lo genera express, y el id es autoincremental
@@ -50,3 +56,4 @@ agregarDestino() {
     }
   }
 }
+

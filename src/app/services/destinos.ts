@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { db } from '../firebase.config';
 
 export interface Destino {
-  id: number;
+  id: number | string;
   nombre: string;
   descripcion: string;
   precio: number;
@@ -133,8 +135,40 @@ export class Destinos {
 }                 
   ];
 
-   constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
+  async getDestinosFirestore() {
+  const coleccionDestinos = collection(db, 'destinos');
+  const snapshot = await getDocs(coleccionDestinos);
 
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+}
+
+  async agregarDestinoFirestore(destino: Omit<Destino, 'id'>) {
+  const coleccionDestinos = collection(db, 'destinos');
+
+  const documento = await addDoc(coleccionDestinos, destino);
+
+  return {
+    id: documento.id,
+    ...destino
+  };
+}
+
+async editarPrecioFirestore(id: string, nuevoPrecio: number) {
+  const referenciaDestino = doc(db, 'destinos', id);
+
+  await updateDoc(referenciaDestino, {
+    precio: nuevoPrecio
+  });
+}
+async eliminarDestinoFirestore(id: string) {
+  const referenciaDestino = doc(db, 'destinos', id);
+
+  await deleteDoc(referenciaDestino);
+}
   getDestinos(): Destino[] {
     return this.destinos;
   }
@@ -146,11 +180,11 @@ export class Destinos {
   return this.http.post<Destino>(this.apiUrl, destino);//manda un post a http://localhost:3000/destinos con el destino que le pasamos
   }
 
-  editarDestinoApi(id: number, cambios: Partial<Destino>): Observable<Destino> {// Partial<Destino>significa que no tengo que mandar todo el destino, puedo mandar solo precio
+ editarDestinoApi(id: number | string, cambios: Partial<Destino>): Observable<Destino> { // Partial<Destino>significa que no tengo que mandar todo el destino, puedo mandar solo precio
   return this.http.put<Destino>(`${this.apiUrl}/${id}`, cambios);
   }
 
-  eliminarDestinoApi(id: number): Observable<Destino> {
+  eliminarDestinoApi(id: number | string): Observable<Destino> {
   return this.http.delete<Destino>(`${this.apiUrl}/${id}`);
   }
   
