@@ -19,3 +19,19 @@ nav a:hover{
   border-radius: 20px;
   padding: 10px 20px;
 }
+.btn-salir {
+  background-color: black;
+  color: white;
+  border: none;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-salir:hover {
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+}

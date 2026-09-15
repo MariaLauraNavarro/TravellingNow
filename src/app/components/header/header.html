@@ -10,10 +10,12 @@
 
         @if (userService.UsuarioLogueado?.rol === 'admin') {
         <a routerLink="/admin-usuarios" routerLinkActive="activo">
-        Admin Usuarios</a>
-}
-       
-        
-        
+            Admin Usuarios</a>
+        }
+        <button class="btn-salir" (click)="cerrarSesion()">
+            Salir
+        </button>
+
+
     </nav>
 </header>
