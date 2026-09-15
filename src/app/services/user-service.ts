@@ -1,4 +1,12 @@
 import { Injectable } from '@angular/core';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
+
+import { auth } from '../firebase.config';
 
 export interface User {
   nombre: string;
@@ -18,14 +26,59 @@ export class UserService {
     {
       nombre: 'María Laura Navarro',
       email: 'marialaura1375@gmail.com',
-      contrasena: '24909847',
+      contrasena: '',
       id: 1,
       rol: 'admin'
     }
-  ];
+  ]
 
   public UsuarioLogueado: User | undefined;
+  async registrarUsuarioFirebase(email: string, contrasena: string) {
+  return await createUserWithEmailAndPassword(
+    auth,
+    email,
+    contrasena
+  );
+} 
+  async iniciarSesionFirebase(email: string, contrasena: string) {
+   const credencial = await signInWithEmailAndPassword(
+    auth,
+    email,
+    contrasena
+  );
+   this.UsuarioLogueado = this.Usuarios.find(
+    usuario => usuario.email.toLowerCase() === email.toLowerCase()
+  );
 
+  return credencial;
+}
+
+
+  async cerrarSesionFirebase() {
+  return await signOut(auth);
+}
+async restaurarSesionFirebase(): Promise<User | undefined> {
+
+  await auth.authStateReady();
+
+  const usuarioFirebase = auth.currentUser;
+
+  console.log('Firebase recuperó:', usuarioFirebase?.email);
+  console.log('Usuario local antes de buscar:', this.UsuarioLogueado);
+
+  if (usuarioFirebase?.email) {
+    this.UsuarioLogueado = this.Usuarios.find(
+      usuario =>
+        usuario.email.toLowerCase() === usuarioFirebase.email!.toLowerCase()
+    );
+  } else {
+    this.UsuarioLogueado = undefined;
+  }
+
+  console.log('Usuario local después de buscar:', this.UsuarioLogueado);
+
+  return this.UsuarioLogueado;
+}
   /**
    * Verifica si un email ya está registrado (case-insensitive)
    */

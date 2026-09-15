@@ -1,7 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import {getFirestore} from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 export const firebaseConfig = {
+  
   apiKey: "AIzaSyDi1bWZiLq6yoCtrJzM0o2WrVW2UDg58Ng",
   authDomain: "travellingnow-51ace.firebaseapp.com",
   projectId: "travellingnow-51ace",
@@ -13,3 +15,4 @@ export const firebaseConfig = {
 export const appFirebase = initializeApp(firebaseConfig);
 
 export const db = getFirestore(appFirebase);
+export const auth = getAuth(appFirebase);

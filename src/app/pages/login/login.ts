@@ -23,7 +23,7 @@ export class Login {
   constructor(
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ingresar() {
     this.emailError = false;
@@ -41,17 +41,18 @@ export class Login {
     if (this.emailError || this.passwordError) {
       return;
     }
-
-    const valido = this.userService.validarUsuario(
-      this.myUser.email,
-      this.myUser.contrasena
-    );
-
-    if (valido) {
-      this.router.navigate(['/home']);
-    } else {
-      this.errorMessage = 'Email o contraseña incorrectos';
-    }
+    this.userService
+      .iniciarSesionFirebase(
+        this.myUser.email,
+        this.myUser.contrasena
+      )
+      .then(() => {
+        this.router.navigate(['/home']);
+      })
+      .catch((error) => {
+        console.error('Error de Firebase:', error);
+        this.errorMessage = 'Email o contraseña incorrectos';
+      });
   }
 
   limpiarErrorEmail() {
@@ -63,4 +64,5 @@ export class Login {
     this.passwordError = false;
     this.errorMessage = '';
   }
+
 }

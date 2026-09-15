@@ -98,23 +98,33 @@ export class Registro {
       return;
     }
 
-    // 5. Registrar usuario
-    try {
-      this.userService.registrarUsuario(this.myUser);
-      this.successMessage = '¡Usuario registrado con éxito!';
-      
-      // Limpiar formulario
-      this.myUser = {} as User;
-      this.confirmPassword = '';
-      
-      // Redirigir al login después de 2 segundos
-      setTimeout(() => {
-        this.router.navigate(['/Ingresar']);// Aquí podrías usar router.navigate(['/login']) si lo inyectas
-      }, 2000);
-      
-    } catch (error) {
-      this.errorMessage = 'Error al registrar el usuario';
-    }
+   // 5. Registrar usuario en Firebase
+
+   this.userService
+  .registrarUsuarioFirebase(
+    this.myUser.email,
+    this.myUser.contrasena
+  )
+  .then(() => {
+
+    this.successMessage = '¡Usuario registrado con éxito!';
+
+    this.myUser = {} as User;
+    this.confirmPassword = '';
+
+    setTimeout(() => {
+      this.router.navigate(['/Ingresar']);
+    }, 2000);
+
+  })
+  .catch((error) => {
+
+    console.error('Error de Firebase:', error);
+
+    this.errorMessage = 'Error al registrar el usuario';
+
+  }); 
+    
   }
 
   // Método para validar formato de email
