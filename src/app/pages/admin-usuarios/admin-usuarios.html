@@ -1,6 +1,8 @@
 <app-header></app-header>
 
 
+@if (userService.UsuarioLogueado?.rol === 'admin') {
+
 <h2>Administrar Usuarios</h2>
 <button class="agregar" (click)="nuevoUsuario()">
  Agregar Usuario
@@ -133,3 +135,4 @@
     }
   </tbody>
 </table>
+}

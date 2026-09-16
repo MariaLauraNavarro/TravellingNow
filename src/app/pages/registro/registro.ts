@@ -100,10 +100,11 @@ export class Registro {
 
    // 5. Registrar usuario en Firebase
 
-   this.userService
+  this.userService
   .registrarUsuarioFirebase(
     this.myUser.email,
-    this.myUser.contrasena
+    this.myUser.contrasena,
+    this.myUser.nombre
   )
   .then(() => {
 

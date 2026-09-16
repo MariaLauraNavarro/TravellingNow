@@ -6,7 +6,16 @@ import {
   onAuthStateChanged
 } from 'firebase/auth';
 
-import { auth } from '../firebase.config';
+import { auth, db } from '../firebase.config';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  setDoc
+} from 'firebase/firestore';
+
 
 export interface User {
   nombre: string;
@@ -33,25 +42,66 @@ export class UserService {
   ]
 
   public UsuarioLogueado: User | undefined;
-  async registrarUsuarioFirebase(email: string, contrasena: string) {
-  return await createUserWithEmailAndPassword(
+
+  async buscarUsuarioFirestore(email: string): Promise<User | undefined> {
+
+  const consulta = query(
+    collection(db, 'usuarios'),
+    where('email', '==', email)
+  );
+
+  const resultado = await getDocs(consulta);
+
+  if (resultado.empty) {
+    return undefined;
+  }
+
+  const datos = resultado.docs[0].data();
+
+  return {
+    nombre: datos['nombre'],
+    email: datos['email'],
+    contrasena: '',
+    id: 0,
+    rol: datos['rol']
+  };
+}
+  
+async registrarUsuarioFirebase(
+  email: string,
+  contrasena: string,
+  nombre: string = ''
+) {
+
+  const credencial = await createUserWithEmailAndPassword(
     auth,
     email,
     contrasena
   );
-} 
-  async iniciarSesionFirebase(email: string, contrasena: string) {
-   const credencial = await signInWithEmailAndPassword(
-    auth,
-    email,
-    contrasena
-  );
-   this.UsuarioLogueado = this.Usuarios.find(
-    usuario => usuario.email.toLowerCase() === email.toLowerCase()
+
+  await setDoc(
+    doc(db, 'usuarios', credencial.user.uid),
+    {
+      nombre: nombre,
+      email: email,
+      rol: 'user'
+    }
   );
 
   return credencial;
 }
+async iniciarSesionFirebase(email: string, contrasena: string) {
+
+  const credencial = await signInWithEmailAndPassword(
+    auth,
+    email,
+    contrasena
+  );
+
+  this.UsuarioLogueado = await this.buscarUsuarioFirestore(email);
+
+  return credencial;
+} 
 
 
   async cerrarSesionFirebase() {
@@ -66,15 +116,15 @@ async restaurarSesionFirebase(): Promise<User | undefined> {
   console.log('Firebase recuperó:', usuarioFirebase?.email);
   console.log('Usuario local antes de buscar:', this.UsuarioLogueado);
 
-  if (usuarioFirebase?.email) {
-    this.UsuarioLogueado = this.Usuarios.find(
-      usuario =>
-        usuario.email.toLowerCase() === usuarioFirebase.email!.toLowerCase()
-    );
-  } else {
-    this.UsuarioLogueado = undefined;
-  }
+if (usuarioFirebase?.email) {
 
+  this.UsuarioLogueado =
+    await this.buscarUsuarioFirestore(usuarioFirebase.email);
+
+} else {
+
+  this.UsuarioLogueado = undefined;
+} 
   console.log('Usuario local después de buscar:', this.UsuarioLogueado);
 
   return this.UsuarioLogueado;

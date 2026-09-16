@@ -19,7 +19,7 @@ export class AdminUsuarios {
   destinoEditando: Destino | null = null;
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private destinosService: Destinos,
     private cdr: ChangeDetectorRef
   ) {
