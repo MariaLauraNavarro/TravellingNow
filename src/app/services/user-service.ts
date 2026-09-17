@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { initializeApp, deleteApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getAuth
 } from 'firebase/auth';
 
-import { auth, db } from '../firebase.config';
+import { auth, db, firebaseConfig } from '../firebase.config';
 import {
   collection,
   getDocs,
@@ -116,6 +118,39 @@ async editarUsuarioFirestore(usuario: User): Promise<void> {
 
 }
  
+async agregarUsuarioDesdeAdmin(usuario: User): Promise<void> {
+
+  const appSecundaria = initializeApp(
+    firebaseConfig,
+    'admin-' + Date.now()
+  );
+
+  const authSecundaria = getAuth(appSecundaria);
+
+  try {
+
+    const credencial = await createUserWithEmailAndPassword(
+      authSecundaria,
+      usuario.email,
+      usuario.contrasena
+    );
+
+    await setDoc(
+      doc(db, 'usuarios', credencial.user.uid),
+      {
+        nombre: usuario.nombre,
+        email: usuario.email,
+        rol: usuario.rol || 'user'
+      }
+    );
+
+  } finally {
+
+    await deleteApp(appSecundaria);
+
+  }
+}
+
 async registrarUsuarioFirebase(
   email: string,
   contrasena: string,

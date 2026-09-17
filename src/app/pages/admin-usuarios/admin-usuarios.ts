@@ -124,10 +124,24 @@ guardarCambios(): void {
   }
 
   if (!this.usuarioEditando.firestoreId) {
-    this.userService.registrarUsuario(this.usuarioEditando);
-    this.usuarioEditando = null;
-    return;
-  }
+
+  this.userService
+    .agregarUsuarioDesdeAdmin(this.usuarioEditando)
+    .then(() => {
+      return this.userService.getAllUsersFirestore();
+    })
+    .then((usuarios) => {
+      this.usuarios = usuarios;
+      this.usuarioEditando = null;
+      this.cdr.detectChanges();
+    })
+    .catch((error) => {
+      console.error('Error al agregar usuario:', error);
+    });
+
+  return;
+}
+  
 
   this.userService
     .editarUsuarioFirestore(this.usuarioEditando)

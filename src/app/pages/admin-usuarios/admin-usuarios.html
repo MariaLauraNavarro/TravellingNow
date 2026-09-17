@@ -50,8 +50,8 @@
       type="email"
       [(ngModel)]="usuarioEditando.email"
       placeholder="Email"
-      readonly>
-      
+      [readonly]="!!usuarioEditando.firestoreId">
+
     <input
       type="password"
       [(ngModel)]="usuarioEditando.contrasena"
