@@ -23,7 +23,14 @@ export class AdminUsuarios {
     private destinosService: Destinos,
     private cdr: ChangeDetectorRef
   ) {
-    this.usuarios = this.userService.getAllUsers(); 
+    this.userService.getAllUsersFirestore()
+  .then((usuarios) => {
+    this.usuarios = usuarios;
+    this.cdr.detectChanges();
+  })
+  .catch((error) => {
+    console.error('Error al obtener usuarios de Firestore:', error);
+  });
 
     this.destinosService.getDestinosFirestore()
 
@@ -41,7 +48,26 @@ export class AdminUsuarios {
     this.userService.eliminarUsuario(id);
     this.usuarios = this.userService.getAllUsers();
   }
+  eliminarUsuarioFirestore(usuario: User): void {
 
+  if (!usuario.firestoreId) {
+    return;
+  }
+
+  this.userService
+    .eliminarUsuarioFirestore(usuario.firestoreId)
+    .then(() => {
+
+      this.usuarios = this.usuarios.filter(
+        u => u.firestoreId !== usuario.firestoreId
+      );
+
+      this.cdr.detectChanges();
+    })
+    .catch((error) => {
+      console.error('Error al eliminar usuario de Firestore:', error);
+    });
+}
   editar(usuario: User): void {
     this.usuarioEditando = { ...usuario };
   }
@@ -91,20 +117,40 @@ export class AdminUsuarios {
       });
   }
 }   
+guardarCambios(): void {
 
-
-  guardarCambios(): void {
-    if (this.usuarioEditando) {
-      if (this.usuarioEditando.id === 0) {
-        this.userService.registrarUsuario(this.usuarioEditando);
-      } else {
-        this.userService.editarUsuario(this.usuarioEditando);
-      }
-
-      this.usuarios = this.userService.getAllUsers();
-      this.usuarioEditando = null;
-    }
+  if (!this.usuarioEditando) {
+    return;
   }
+
+  if (!this.usuarioEditando.firestoreId) {
+    this.userService.registrarUsuario(this.usuarioEditando);
+    this.usuarioEditando = null;
+    return;
+  }
+
+  this.userService
+    .editarUsuarioFirestore(this.usuarioEditando)
+    .then(() => {
+
+      return this.userService.getAllUsersFirestore();
+
+    })
+    .then((usuarios) => {
+
+      this.usuarios = usuarios;
+      this.usuarioEditando = null;
+      this.cdr.detectChanges();
+
+    })
+    .catch((error) => {
+
+      console.error('Error al editar usuario en Firestore:', error);
+
+    });
+}
+
+ 
   cambiarPrecio(destino: Destino): void {
   this.destinosService
     .editarPrecioFirestore(String(destino.id), destino.precio)

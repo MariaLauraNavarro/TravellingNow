@@ -13,7 +13,9 @@ import {
   query,
   where,
   doc,
-  setDoc
+  setDoc, 
+  deleteDoc,
+  updateDoc
 } from 'firebase/firestore';
 
 
@@ -23,6 +25,7 @@ export interface User {
   contrasena: string;
   id: number;
   rol: string;
+  firestoreId?: string;
 }
 
 @Injectable({
@@ -50,6 +53,7 @@ export class UserService {
     where('email', '==', email)
   );
 
+
   const resultado = await getDocs(consulta);
 
   if (resultado.empty) {
@@ -66,7 +70,52 @@ export class UserService {
     rol: datos['rol']
   };
 }
-  
+
+ 
+ async getAllUsersFirestore(): Promise<User[]> {
+
+  const coleccionUsuarios = collection(db, 'usuarios');
+  const resultado = await getDocs(coleccionUsuarios);
+
+  return resultado.docs.map(documento => {
+
+    const datos = documento.data();
+
+    return {
+      nombre: datos['nombre'],
+      email: datos['email'],
+      contrasena: '',
+      id: 0,
+      rol: datos['rol'],
+      firestoreId: documento.id
+    };
+  });
+}
+
+async eliminarUsuarioFirestore(firestoreId: string): Promise<void> {
+
+  await deleteDoc(
+    doc(db, 'usuarios', firestoreId)
+  );
+
+}
+
+async editarUsuarioFirestore(usuario: User): Promise<void> {
+
+  if (!usuario.firestoreId) {
+    return;
+  }
+
+  await updateDoc(
+    doc(db, 'usuarios', usuario.firestoreId),
+    {
+      nombre: usuario.nombre,
+      rol: usuario.rol
+    }
+  );
+
+}
+ 
 async registrarUsuarioFirebase(
   email: string,
   contrasena: string,

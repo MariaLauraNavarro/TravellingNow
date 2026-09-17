@@ -18,14 +18,14 @@
   </thead>
 
   <tbody>
-    @for (usuario of usuarios; track usuario.id) {
+    @for (usuario of usuarios; track usuario.firestoreId)  {
       <tr>
         <td>{{ usuario.nombre }}</td>
         <td>{{ usuario.email }}</td>
         <td>{{ usuario.rol }}</td>
         <td>
           <button (click)="editar(usuario)">Editar</button>
-          <button class="eliminar" (click)="eliminar(usuario.id)">Eliminar</button>
+          <button (click)="eliminarUsuarioFirestore(usuario)">Eliminar</button>
         </td>
       </tr>
     }
@@ -45,11 +45,13 @@
       type="text"
       [(ngModel)]="usuarioEditando.nombre"
       placeholder="Nombre">
-
+      
     <input
       type="email"
       [(ngModel)]="usuarioEditando.email"
-      placeholder="Email">
+      placeholder="Email"
+      readonly>
+      
     <input
       type="password"
       [(ngModel)]="usuarioEditando.contrasena"
