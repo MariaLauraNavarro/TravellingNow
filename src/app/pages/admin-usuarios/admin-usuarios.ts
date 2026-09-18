@@ -44,10 +44,7 @@ export class AdminUsuarios {
 
   }
 
-  eliminar(id: number): void {
-    this.userService.eliminarUsuario(id);
-    this.usuarios = this.userService.getAllUsers();
-  }
+ 
   eliminarUsuarioFirestore(usuario: User): void {
 
   if (!usuario.firestoreId) {

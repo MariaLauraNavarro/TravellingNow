@@ -4,7 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
   getAuth
 } from 'firebase/auth';
 
@@ -35,17 +34,7 @@ export interface User {
 })
 export class UserService {
   
-  // Lista de usuarios con datos iniciales
-  private Usuarios: User[] = [
-    {
-      nombre: 'María Laura Navarro',
-      email: 'marialaura1375@gmail.com',
-      contrasena: '',
-      id: 1,
-      rol: 'admin'
-    }
-  ]
-
+ 
   public UsuarioLogueado: User | undefined;
 
   async buscarUsuarioFirestore(email: string): Promise<User | undefined> {
@@ -213,71 +202,8 @@ if (usuarioFirebase?.email) {
 
   return this.UsuarioLogueado;
 }
-  /**
-   * Verifica si un email ya está registrado (case-insensitive)
-   */
-  existeUsuario(email: string): boolean {
-    return this.Usuarios.some(
-      u => u.email.toLowerCase() === email.toLowerCase()
-    );
-  }
+ 
 
-  /**
-   * Valida credenciales para login
-   */
-  validarUsuario(email: string, contrasena: string): boolean {
-    this.UsuarioLogueado = this.Usuarios.find(
-      u => u.email.toLowerCase() === email.toLowerCase() 
-        && u.contrasena === contrasena
-    );
-    return this.UsuarioLogueado !== undefined;
-  }
-
-  /**
-   * Registra un nuevo usuario con ID automático y rol por defecto
-   * @throws Error si el email ya existe
-   */
-  registrarUsuario(usuario: User): void {
-    // 1. Verificar si el email ya existe
-    if (this.existeUsuario(usuario.email)) {
-      throw new Error('El email ya está registrado');
-    }
-
-    // 2. Generar ID automático (mayor ID actual + 1)
-    const maxId = this.Usuarios.length > 0 
-      ? Math.max(...this.Usuarios.map(u => u.id)) 
-      : 0;
-    
-    // 3. Crear usuario completo con valores por defecto
-    const nuevoUsuario: User = {
-      ...usuario,
-      id: maxId + 1,
-      rol: usuario.rol || 'user'
-    };
-
-    // 4. Agregar a la lista
-    this.Usuarios.push(nuevoUsuario);
-  }
-
-  /**
-   * (Opcional) Retorna copia de la lista para debug
-   */
-  getAllUsers(): User[] {
-    return [...this.Usuarios];
-  }
-  eliminarUsuario(id: number): void {
-  this.Usuarios = this.Usuarios.filter(u => u.id !== id);
-  }
-
-  editarUsuario(usuarioEditado: User): void {
-
-    const index = this.Usuarios.findIndex(
-      u => u.id === usuarioEditado.id
-    );
-
-    if (index !== -1) {
-      this.Usuarios[index] = usuarioEditado;
-    }
-  }
+   
 }
 

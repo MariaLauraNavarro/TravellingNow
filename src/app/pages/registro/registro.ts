@@ -55,13 +55,7 @@ export class Registro {
       }
       this.emailError = true;
       hayErrores = true;
-    } else if (this.userService.existeUsuario(this.myUser.email)) {
-      if (!hayErrores) {
-        this.errorMessage = 'Este email ya está registrado';
-      }
-      this.emailError = true;
-      hayErrores = true;
-    }
+   }
 
     // 3. Validar Contraseña
     if (!this.myUser.contrasena) {
