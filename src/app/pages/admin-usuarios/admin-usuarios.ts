@@ -23,14 +23,18 @@ export class AdminUsuarios {
     private destinosService: Destinos,
     private cdr: ChangeDetectorRef
   ) {
-    this.userService.getAllUsersFirestore()
-  .then((usuarios) => {
-    this.usuarios = usuarios;
-    this.cdr.detectChanges();
-  })
-  .catch((error) => {
-    console.error('Error al obtener usuarios de Firestore:', error);
-  });
+   if (typeof window !== 'undefined') {
+
+  this.userService.getAllUsersFirestore()
+    .then((usuarios) => {
+      this.usuarios = usuarios;
+      this.cdr.detectChanges();
+    })
+    .catch((error) => {
+      console.error('Error al obtener usuarios de Firestore:', error);
+    });
+
+}
 
     this.destinosService.getDestinosFirestore()
 
