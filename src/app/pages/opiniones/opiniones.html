@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<h2>Opiniones de Viajeros</h2>
+
+<div class="formulario-opinion">
+
+  <label>Destino</label>
+  <input
+    type="text"
+    [(ngModel)]="destinoSeleccionado"
+    placeholder="Nombre del destino">
+
+  <label>Comentario</label>
+  <textarea
+  [(ngModel)]="comentario"
+  placeholder="Escribí tu opinión"></textarea>
+
+  <label>Puntuación</label>
+  <select [(ngModel)]="puntuacion">
+    <option [ngValue]="1">1</option>
+    <option [ngValue]="2">2</option>
+    <option [ngValue]="3">3</option>
+    <option [ngValue]="4">4</option>
+    <option [ngValue]="5">5</option>
+  </select>
+
+  <button (click)="publicarOpinion()">Publicar opinión</button>
+
+</div>
+<h3>Opiniones publicadas</h3>
+
+@for (opinion of opiniones (); track opinion.id) {
+
+  <div class="opinion">
+
+    <h4>{{ opinion.destino }}</h4>
+
+    <p>
+      {{ opinion.comentario }}
+    </p>
+
+    <p>
+      Puntuación: {{ opinion.puntuacion }}/5
+    </p>
+
+    <small>
+      {{ opinion.usuarioEmail }}
+    </small>
+
+  </div>
+
+}
