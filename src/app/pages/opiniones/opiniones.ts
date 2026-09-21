@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { Header } from '../../components/header/header';
 import { FormsModule } from '@angular/forms';
-import { collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, deleteDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db, auth } from '../../firebase.config';
 
 export interface Opinion {
@@ -34,32 +34,34 @@ export class Opiniones {
   }
 }
 
-  async cargarOpiniones() {
+ cargarOpiniones() {
 
-  const resultado = await getDocs(
-    collection(db, 'opiniones')
+  onSnapshot(
+    collection(db, 'opiniones'),
+    (resultado) => {
+
+      this.opiniones.set(
+        resultado.docs.map(documento => {
+
+          const datos = documento.data();
+
+          return {
+            id: documento.id,
+            destino: datos['destino'],
+            comentario: datos['comentario'],
+            puntuacion: datos['puntuacion'],
+            usuarioEmail: datos['usuarioEmail'],
+            usuarioId: datos['usuarioId'],
+            fecha: datos['fecha']
+          };
+
+        })
+      );
+
+      this.cdr.detectChanges();
+    }
   );
-  
 
-  this.opiniones.set(
-  resultado.docs.map(documento => {
-
-    const datos = documento.data();
-
-    return {
-      id: documento.id,
-      destino: datos['destino'],
-      comentario: datos['comentario'],
-      puntuacion: datos['puntuacion'],
-      usuarioEmail: datos['usuarioEmail'],
-      usuarioId: datos['usuarioId'],
-      fecha: datos['fecha']
-    };
-
-  })
-);
-    
-    this.cdr.detectChanges();
 }
   async eliminarOpinion(id: string) {
 
@@ -73,7 +75,7 @@ export class Opiniones {
     doc(db, 'opiniones', id)
   );
 
-  await this.cargarOpiniones();
+ 
 }
   editarOpinion(opinion: Opinion) {
 
@@ -125,8 +127,11 @@ export class Opiniones {
   );
 
 }
+this.destinoSeleccionado = '';
+this.comentario = '';
+this.puntuacion = 5;
 
-await this.cargarOpiniones();
+this.cdr.detectChanges();
   
 }
 }
