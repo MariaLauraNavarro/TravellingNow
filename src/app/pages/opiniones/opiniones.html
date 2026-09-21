@@ -15,19 +15,24 @@
   [(ngModel)]="comentario"
   placeholder="Escribí tu opinión"></textarea>
 
-  <label>Puntuación</label>
-  <select [(ngModel)]="puntuacion">
-    <option [ngValue]="1">1</option>
-    <option [ngValue]="2">2</option>
-    <option [ngValue]="3">3</option>
-    <option [ngValue]="4">4</option>
-    <option [ngValue]="5">5</option>
-  </select>
+ <label>Puntuación de la experiencia</label>
+
+<select [(ngModel)]="puntuacion">
+  <option [ngValue]="1">1 - Muy mala</option>
+  <option [ngValue]="2">2 - Mala</option>
+  <option [ngValue]="3">3 - Regular</option>
+  <option [ngValue]="4">4 - Buena</option>
+  <option [ngValue]="5">5 - Muy buena</option>
+</select>
 
   <button (click)="publicarOpinion()">Publicar opinión</button>
 
 </div>
 <h3>Opiniones publicadas</h3>
+
+<div class="grafico-opiniones">
+  <canvas id="graficoPuntuaciones"></canvas>
+</div>
 
 @for (opinion of opiniones (); track opinion.id) {
 
@@ -40,7 +45,9 @@
     </p>
 
     <p>
-      Puntuación: {{ opinion.puntuacion }}/5
+      Experiencia:
+      {{ opinion.puntuacion }}/5 -
+      {{ obtenerDescripcionPuntuacion(opinion.puntuacion) }}
     </p>
 
     <small>
@@ -50,7 +57,7 @@
     <small>
      {{ opinion.fecha?.toDate() | date:'dd/MM/yyyy HH:mm' }}
     </small> 
-    
+
     <button
     class="btn-editar"
     (click)="editarOpinion(opinion)">

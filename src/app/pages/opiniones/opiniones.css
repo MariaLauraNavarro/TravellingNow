@@ -137,3 +137,10 @@ h3 {
 .btn-eliminar:hover {
   background-color: #555;
 }
+.grafico-opiniones {
+  max-width: 700px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+}
