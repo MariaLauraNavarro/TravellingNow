@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { Header } from '../../components/header/header';
 import { FormsModule } from '@angular/forms';
-import { collection, addDoc, serverTimestamp, deleteDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db, auth } from '../../firebase.config';
 
 export interface Opinion {
@@ -16,7 +17,7 @@ export interface Opinion {
 
 @Component({
   selector: 'app-opiniones',
-  imports: [Header, FormsModule],
+  imports: [Header, FormsModule, DatePipe],
   templateUrl: './opiniones.html',
   styleUrl: './opiniones.css',
 })
@@ -37,7 +38,10 @@ export class Opiniones {
  cargarOpiniones() {
 
   onSnapshot(
-    collection(db, 'opiniones'),
+   query(
+  collection(db, 'opiniones'),
+  orderBy('fecha', 'desc')
+),
     (resultado) => {
 
       this.opiniones.set(
@@ -45,7 +49,7 @@ export class Opiniones {
 
           const datos = documento.data();
 
-          return {
+          return { 
             id: documento.id,
             destino: datos['destino'],
             comentario: datos['comentario'],

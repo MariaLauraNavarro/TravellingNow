@@ -46,7 +46,11 @@
     <small>
       {{ opinion.usuarioEmail }}
     </small>
-      
+
+    <small>
+     {{ opinion.fecha?.toDate() | date:'dd/MM/yyyy HH:mm' }}
+    </small> 
+    
     <button
     class="btn-editar"
     (click)="editarOpinion(opinion)">
