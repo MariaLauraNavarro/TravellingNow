@@ -129,6 +129,46 @@ obtenerDescripcionPuntuacion(puntuacion: number): string {
       return '';
   }
 }
+descargarCSV() {
+
+  const encabezados = [
+    'Destino',
+    'Comentario',
+    'Experiencia',
+    'Usuario',
+    'Fecha'
+  ];
+
+  const filas = this.opiniones().map(opinion => [
+    opinion.destino,
+    opinion.comentario,
+    `${opinion.puntuacion}/5 - ${this.obtenerDescripcionPuntuacion(opinion.puntuacion)}`,
+    opinion.usuarioEmail,
+    opinion.fecha?.toDate().toLocaleString() || ''
+  ]);
+
+  const contenido = [
+    encabezados,
+    ...filas
+  ]
+    .map(fila => fila.join(';'))
+    .join('\n');
+
+  const blob = new Blob(
+    ['\uFEFF' + contenido],
+    { type: 'text/csv;charset=utf-8;' }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const enlace = document.createElement('a');
+
+  enlace.href = url;
+  enlace.download = 'opiniones.csv';
+  enlace.click();
+
+  URL.revokeObjectURL(url);
+}
   async eliminarOpinion(id: string) {
 
   const confirmar = confirm('¿Querés eliminar esta opinión?');

@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-//import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User, UserService } from '../../services/user-service';
 import { Header } from '../../components/header/header';
@@ -93,7 +92,37 @@ export class AdminUsuarios {
 }
  guardarDestino(): void {
   if (this.destinoEditando) {
+    if (this.destinoEditando!.id !== 0) {
 
+  const destinoActualizado = { ...this.destinoEditando! };
+
+  this.destinosService.editarDestinoFirestore(
+    String(destinoActualizado.id),
+    {
+      nombre: destinoActualizado.nombre,
+      descripcion: destinoActualizado.descripcion,
+      precio: destinoActualizado.precio,
+      imagen: destinoActualizado.imagen
+    }
+  )
+  .then(() => {
+
+    this.destinos = this.destinos.map(destino =>
+      String(destino.id) === String(destinoActualizado.id)
+        ? destinoActualizado
+        : destino
+    );
+
+    this.destinoEditando = null;
+    this.cdr.detectChanges();
+
+  })
+  .catch((error) => {
+    console.error('Error al editar destino en Firestore:', error);
+  });
+
+  return;
+} 
     const nuevoDestino = {
       nombre: this.destinoEditando.nombre,
       descripcion: this.destinoEditando.descripcion,
@@ -117,7 +146,10 @@ export class AdminUsuarios {
         console.error('Error al agregar destino en Firestore:', error);
       });
   }
-}   
+} 
+ editarDestino(destino: Destino): void {
+  this.destinoEditando = { ...destino };
+} 
 guardarCambios(): void {
 
   if (!this.usuarioEditando) {

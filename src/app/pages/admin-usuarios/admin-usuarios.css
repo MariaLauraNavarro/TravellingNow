@@ -122,3 +122,6 @@ button.agregar:hover{
     color: white !important;
     transform: scale(1.05);
 }
+textarea {
+  font-family: inherit;
+}

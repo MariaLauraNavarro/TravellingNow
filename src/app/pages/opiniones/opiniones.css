@@ -2,7 +2,7 @@
   display: block;
   min-height: 100vh;
 
-  background-image: url('/img/fondoConocenos.jpg');
+ background-image: url('/img/fondoOpiniones.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -143,4 +143,19 @@ h3 {
   background-color: white;
   padding: 20px;
   border-radius: 12px;
+}
+.btn-csv {
+  display: block;
+  margin: 20px auto 30px;
+  padding: 12px 24px;
+  background-color: #5219e6;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-csv:hover {
+  opacity: 0.85;
 }

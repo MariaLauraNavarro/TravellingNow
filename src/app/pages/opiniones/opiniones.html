@@ -31,8 +31,18 @@
 <h3>Opiniones publicadas</h3>
 
 <div class="grafico-opiniones">
+
+  <p class="contador-opiniones">
+    Total de opiniones: {{ opiniones().length }}
+  </p>
+
   <canvas id="graficoPuntuaciones"></canvas>
+
 </div>
+
+<button class="btn-csv" (click)="descargarCSV()">
+  Descargar CSV
+</button>
 
 @for (opinion of opiniones (); track opinion.id) {
 

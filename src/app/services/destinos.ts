@@ -164,6 +164,15 @@ async editarPrecioFirestore(id: string, nuevoPrecio: number) {
     precio: nuevoPrecio
   });
 }
+async editarDestinoFirestore(
+  id: string,
+  cambios: Partial<Omit<Destino, 'id'>>
+) {
+  const referenciaDestino = doc(db, 'destinos', id);
+
+  await updateDoc(referenciaDestino, cambios);
+}
+
 async eliminarDestinoFirestore(id: string) {
   const referenciaDestino = doc(db, 'destinos', id);
 
