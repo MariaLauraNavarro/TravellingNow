@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { Header } from '../../components/header/header';
 import { FormsModule } from '@angular/forms';
-import { collection, addDoc, serverTimestamp, getDocs } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../firebase.config';
 
 export interface Opinion {
@@ -26,6 +26,7 @@ export class Opiniones {
   comentario: string = '';
   puntuacion: number = 5;
   opiniones = signal<Opinion[]>([]);
+  opinionEditandoId: string | null = null;
 
   constructor(private cdr: ChangeDetectorRef) {
   if (typeof window !== 'undefined') {
@@ -60,7 +61,28 @@ export class Opiniones {
     
     this.cdr.detectChanges();
 }
-  
+  async eliminarOpinion(id: string) {
+
+  const confirmar = confirm('¿Querés eliminar esta opinión?');
+
+  if (!confirmar) {
+    return;
+  }
+
+  await deleteDoc(
+    doc(db, 'opiniones', id)
+  );
+
+  await this.cargarOpiniones();
+}
+  editarOpinion(opinion: Opinion) {
+
+  this.opinionEditandoId = opinion.id || null;
+  this.destinoSeleccionado = opinion.destino;
+  this.comentario = opinion.comentario;
+  this.puntuacion = opinion.puntuacion;
+
+}
   async publicarOpinion() {
 
   const usuario = auth.currentUser;
@@ -75,6 +97,21 @@ export class Opiniones {
     return;
   }
 
+ if (this.opinionEditandoId) {
+
+  await updateDoc(
+    doc(db, 'opiniones', this.opinionEditandoId),
+    {
+      destino: this.destinoSeleccionado,
+      comentario: this.comentario,
+      puntuacion: this.puntuacion
+    }
+  );
+
+  this.opinionEditandoId = null;
+
+} else {
+
   await addDoc(
     collection(db, 'opiniones'),
     {
@@ -86,6 +123,10 @@ export class Opiniones {
       fecha: serverTimestamp()
     }
   );
-  await this.cargarOpiniones();
+
+}
+
+await this.cargarOpiniones();
+  
 }
 }

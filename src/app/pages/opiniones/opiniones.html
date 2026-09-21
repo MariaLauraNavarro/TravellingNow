@@ -46,6 +46,18 @@
     <small>
       {{ opinion.usuarioEmail }}
     </small>
+      
+    <button
+    class="btn-editar"
+    (click)="editarOpinion(opinion)">
+    Editar
+    </button>
+
+    <button
+    class="btn-eliminar"
+    (click)="eliminarOpinion(opinion.id!)">
+    Eliminar
+    </button>
 
   </div>
 
