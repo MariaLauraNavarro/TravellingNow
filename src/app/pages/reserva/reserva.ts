@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Destino, Destinos } from '../../services/destinos';
@@ -27,6 +28,7 @@ export class Reserva {
   private cdr: ChangeDetectorRef
 ) {
   this.destinoId = this.route.snapshot.paramMap.get('id');
+
   if (this.destinoId) {
   this.destinosService.getDestinosFirestore()
     .then((destinos) => {
@@ -38,6 +40,12 @@ export class Reserva {
         this.cdr.detectChanges();
     });
   }
+  onAuthStateChanged(auth, (usuario) => {
+  if (usuario?.email) {
+    this.email = usuario.email;
+    this.cdr.detectChanges();
+  }
+});
  }
  async confirmarReserva() {
 

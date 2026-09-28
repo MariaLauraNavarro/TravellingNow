@@ -11,6 +11,7 @@ import{ Registro } from './pages/registro/registro';
 import { AdminUsuarios } from './pages/admin-usuarios/admin-usuarios';
 import { Opiniones } from './pages/opiniones/opiniones';
 import { Reserva } from './pages/reserva/reserva';
+import { MisReservas } from './pages/mis-reservas/mis-reservas';
 
 export const routes: Routes = [
 
@@ -22,6 +23,7 @@ export const routes: Routes = [
  {path: 'Destinos', component:Destiny},
  {path: 'Contactanos', component:Contact},
  {path: 'Opiniones', component: Opiniones},
+ {path: 'MisReservas', component: MisReservas},
 {
   path: 'Reserva/:id',
   component: Reserva

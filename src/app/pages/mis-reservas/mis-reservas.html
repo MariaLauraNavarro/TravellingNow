@@ -1,0 +1,23 @@
+<app-header></app-header>
+<h2>Mis Reservas</h2>
+
+@if (reservas().length === 0) {
+  <p>No tenés reservas realizadas.</p>
+}
+
+@for (reserva of reservas(); track reserva.id) {
+
+  <div class="reserva">
+
+
+    <h3>{{ reserva.destinoNombre }}</h3>
+
+    <p>Fecha de viaje: {{ reserva.fechaViaje }}</p>
+
+    <p>Pasajeros: {{ reserva.cantidadPasajeros }}</p>
+
+    <p>Precio: ${{ reserva.precio }}</p>
+
+  </div>
+
+}
