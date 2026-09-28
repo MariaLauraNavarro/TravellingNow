@@ -46,5 +46,17 @@ service cloud.firestore {
       || isAdmin()
     );
 }
+
+match /reservas/{reservaId} {
+
+  allow create: if request.auth != null
+    && request.resource.data.usuarioId == request.auth.uid;
+
+  allow read, update, delete: if request.auth != null
+    && (
+      resource.data.usuarioId == request.auth.uid
+      || isAdmin()
+    );
+}
   }
 }

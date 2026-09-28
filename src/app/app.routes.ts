@@ -10,7 +10,7 @@ import { Notfound } from './pages/notfound/notfound';
 import{ Registro } from './pages/registro/registro';
 import { AdminUsuarios } from './pages/admin-usuarios/admin-usuarios';
 import { Opiniones } from './pages/opiniones/opiniones';
-
+import { Reserva } from './pages/reserva/reserva';
 
 export const routes: Routes = [
 
@@ -22,9 +22,20 @@ export const routes: Routes = [
  {path: 'Destinos', component:Destiny},
  {path: 'Contactanos', component:Contact},
  {path: 'Opiniones', component: Opiniones},
- {path: 'admin-usuarios',component: AdminUsuarios,
-    canActivate: [adminGuard]
+{
+  path: 'Reserva/:id',
+  component: Reserva
 },
- {path: '**', component:Notfound},
- 
+
+{
+  path: 'admin-usuarios',
+  component: AdminUsuarios,
+  canActivate: [adminGuard]
+},
+
+{
+  path: '**',
+  component: Notfound
+},
+
 ];

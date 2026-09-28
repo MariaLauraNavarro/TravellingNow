@@ -1,0 +1,44 @@
+<h2>Reserva</h2>
+
+@if (destino) {
+  <h3>{{ destino.nombre }}</h3>
+
+  <img
+    [src]="destino.imagen"
+    [alt]="destino.nombre"
+    width="300">
+
+  <p>{{ destino.descripcion }}</p>
+
+  <p>Precio: ${{ destino.precio }}</p>
+
+  <div class="formulario-reserva">
+
+  <h3>Datos de la reserva</h3>
+  <input
+  type="text"
+  placeholder="Nombre y apellido"
+  [(ngModel)]="nombreApellido">
+
+<input
+  type="email"
+  placeholder="Email"
+  [(ngModel)]="email">
+
+<input
+  type="number"
+  min="1"
+  placeholder="Cantidad de pasajeros"
+  [(ngModel)]="cantidadPasajeros">
+
+<input
+  type="date"
+  [(ngModel)]="fechaViaje">
+  
+
+ <button (click)="confirmarReserva()">
+  Confirmar reserva
+ </button>
+
+</div>
+}
