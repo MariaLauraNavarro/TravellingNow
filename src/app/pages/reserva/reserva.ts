@@ -73,6 +73,7 @@ export class Reserva {
       destinoId: this.destino.id,
       destinoNombre: this.destino.nombre,
       precio: this.destino.precio,
+      total: this.destino.precio * this.cantidadPasajeros,
       nombreApellido: this.nombreApellido,
       email: this.email,
       cantidadPasajeros: this.cantidadPasajeros,

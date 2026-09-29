@@ -18,6 +18,10 @@
 
     <p>Precio: ${{ reserva.precio }}</p>
 
+    
+    <p>Total: ${{ reserva.total ?? (reserva.precio * reserva.cantidadPasajeros) }}</p>
+
+
   </div>
 
 }

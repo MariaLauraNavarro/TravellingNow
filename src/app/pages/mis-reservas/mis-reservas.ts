@@ -11,6 +11,7 @@ interface ReservaUsuario {
   cantidadPasajeros: number;
   fechaViaje: string;
   fechaReserva?: any;
+  total?: number;
 }
 
 @Component({
@@ -58,7 +59,8 @@ export class MisReservas {
       precio: datos['precio'],
       cantidadPasajeros: datos['cantidadPasajeros'],
       fechaViaje: datos['fechaViaje'],
-      fechaReserva: datos['fechaReserva']
+      fechaReserva: datos['fechaReserva'],
+      total: datos['total'],
     };
   }));
 
