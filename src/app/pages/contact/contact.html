@@ -7,8 +7,38 @@
   <div class="texto-banner">
     <h1>Contáctanos</h1>
     <p>Planificá tu próxima aventura con nosotros</p>
-    <button>Consultar ahora</button>
+    <button (click)="formulario.scrollIntoView({ behavior: 'smooth' })">
+     Consultar ahora
+</button>
   </div>
 </div>
+<div class="formulario-contacto" #formulario>
+
+  <h2>Enviá tu consulta</h2>
+
+<input
+  type="text"
+  placeholder="Nombre y apellido"
+  [(ngModel)]="nombreApellido">
+
+<input
+  type="email"
+  placeholder="Email"
+  [(ngModel)]="email">
+
+<input
+  type="text"
+  placeholder="Asunto"
+  [(ngModel)]="asunto">
+
+<textarea
+  placeholder="Escribí tu consulta"
+  [(ngModel)]="mensaje"></textarea>  
+
+<button (click)="enviarConsulta()">
+  Enviar consulta
+</button> 
+</div>
+
 
 <app-footer></app-footer>

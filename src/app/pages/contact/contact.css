@@ -41,3 +41,46 @@
 .texto-banner button:hover{
     background-color: #009acd;
 }
+.formulario-contacto {
+  width: 500px;
+  max-width: 90%;
+  margin: 40px auto;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.formulario-contacto h2 {
+  text-align: center;
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.formulario-contacto textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.formulario-contacto button {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #5219e6;
+  color: white;
+  cursor: pointer;
+}
