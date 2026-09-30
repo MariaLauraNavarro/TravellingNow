@@ -1,0 +1,84 @@
+.promociones {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.promociones h1 {
+  margin-bottom: 30px;
+}
+
+.promocion-card {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carrusel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.carrusel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: rgba(0, 0, 0, 0.45);
+  color: white;
+  font-size: 35px;
+  width: 45px;
+  height: 55px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.izquierda {
+  left: 10px;
+}
+
+.derecha {
+  right: 10px;
+}
+
+.promocion-card h2 {
+  margin-bottom: 15px;
+}
+
+.promocion-card p {
+  margin-top: 20px;
+}
+
+.promocion-card h3 {
+  margin-top: 10px;
+  font-size: 24px;
+}
+.btn-reservar {
+  margin: 8px 15px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #5219e6;
+  color: white;
+}
+
+.btn-reservar:hover {
+  background-color: #3f13b8;
+  transform: translateY(-2px);
+}

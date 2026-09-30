@@ -1,0 +1,46 @@
+<app-header></app-header>
+<section class="promociones">
+
+  <h1>Promociones</h1>
+
+  @for (promocion of promociones; track promocion.id; let i = $index) {
+
+    <div class="promocion-card">
+
+      <h2>{{ promocion.nombre }}</h2>
+
+      <div class="carrusel">
+
+        <button
+        class="flecha izquierda"
+        (click)="anteriorImagen(i)">
+        ‹
+        </button>
+
+        <img
+          [src]="promocion.imagenes[imagenActual[i]]"
+          [alt]="promocion.nombre">
+
+        <button
+          class="flecha derecha"
+          (click)="siguienteImagen(i)">
+          ›
+        </button>
+
+      </div>
+
+      <p>{{ promocion.descripcion }}</p>
+
+      <h3>${{ promocion.precio }}</h3>
+
+       <button
+       class="btn-reservar"
+       [routerLink]="['/Reserva', promocion.id]">
+       Reservar
+       </button>
+
+    </div>
+
+  }
+
+</section>

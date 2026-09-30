@@ -132,7 +132,35 @@ export class Destinos {
   descripcion:" Uno de los paraisos mas hermosos del mundo, con sus playas de aguas cristalinas y su rica historia maya, es un destino imperdible para los amantes de la naturaleza y la cultura.",
   precio:2500000,
   imagen:"/img/Tulum.jpg",
-}                 
+}, 
+{
+  id:17,
+  nombre:"Argentina,Córdoba",
+  descripcion:"Descubrí Córdoba, sus sierras, paisajes y propuestas turísticas.",
+  precio:350000,
+  imagen:"/img/cordoba1.jpg",
+},
+{
+  id:18,
+  nombre:"Argentina,Mar del Plata",
+  descripcion:"Disfrutá de Mar del Plata, sus playas, gastronomía y principales atractivos turísticos.",
+  precio:300000,
+  imagen:"/img/mardel1.jpg",
+},
+{
+  id:19,
+  nombre:"Argentina,Mendoza",
+  descripcion:"Descubrí Mendoza, sus paisajes, montañas y reconocida ruta del vino.",
+  precio:380000,
+  imagen:"/img/mendoza.jpg",
+}, 
+{
+  id:20,
+  nombre:"Argentina,Misiones",
+  descripcion:"Conocé Misiones, sus paisajes naturales y la majestuosidad de las Cataratas del Iguazú.",
+  precio:420000,
+  imagen:"/img/misiones1.jpg",
+},               
   ];
 
   constructor(private http: HttpClient) { }

@@ -7,7 +7,7 @@ import { Destiny } from './pages/destiny/destiny';
 import { Contact } from './pages/contact/contact';
 import { Login } from './pages/login/login';
 import { Notfound } from './pages/notfound/notfound';
-import{ Registro } from './pages/registro/registro';
+import { Registro } from './pages/registro/registro';
 import { AdminUsuarios } from './pages/admin-usuarios/admin-usuarios';
 import { Opiniones } from './pages/opiniones/opiniones';
 import { Reserva } from './pages/reserva/reserva';
@@ -15,29 +15,37 @@ import { MisReservas } from './pages/mis-reservas/mis-reservas';
 
 export const routes: Routes = [
 
- {path: '', component: Principal},
- {path: 'Ingresar', component: Login},
- {path:'registro', component:Registro},
- {path: 'home', component:Home},
- {path: 'Conocenos', component:About},
- {path: 'Destinos', component:Destiny},
- {path: 'Contactanos', component:Contact},
- {path: 'Opiniones', component: Opiniones},
- {path: 'MisReservas', component: MisReservas},
-{
-  path: 'Reserva/:id',
-  component: Reserva
-},
+  { path: '', component: Principal },
+  { path: 'Ingresar', component: Login },
+  { path: 'registro', component: Registro },
+  { path: 'home', component: Home },
+  { path: 'Conocenos', component: About },
+  { path: 'Destinos', component: Destiny },
+  { path: 'Contactanos', component: Contact },
+  { path: 'Opiniones', component: Opiniones },
+  { path: 'MisReservas', component: MisReservas },
 
-{
-  path: 'admin-usuarios',
-  component: AdminUsuarios,
-  canActivate: [adminGuard]
-},
+  {
+    path: 'Reserva/:id',
+    component: Reserva
+  },
 
-{
-  path: '**',
-  component: Notfound
-},
+  {
+    path: 'promociones',
+    loadComponent: () =>
+      import('./pages/promociones/promociones')
+        .then(m => m.Promociones)
+  },
+
+  {
+    path: 'admin-usuarios',
+    component: AdminUsuarios,
+    canActivate: [adminGuard]
+  },
+
+  {
+    path: '**',
+    component: Notfound
+  }
 
 ];
