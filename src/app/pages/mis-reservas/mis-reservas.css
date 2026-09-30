@@ -1,0 +1,61 @@
+.mis-reservas {
+  padding: 30px 60px;
+}
+
+.mis-reservas h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+.contenedor-reservas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.reserva {
+  width: 300px;
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  border-top: 5px solid #5219e6;
+}
+
+.reserva h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  text-align: center;
+  font-size: 22px;
+  color: #5219e6;
+}
+
+.datos-reserva p {
+  margin: 10px 0;
+  color: #444;
+}
+
+.total-reserva {
+  margin-top: 20px;
+  padding: 12px;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+
+  background-color: #ece7ff;
+  color: #5219e6;
+
+  border-radius: 10px;
+}
+
+.sin-reservas {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}

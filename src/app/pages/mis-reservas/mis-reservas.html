@@ -1,27 +1,37 @@
 <app-header></app-header>
-<h2>Mis Reservas</h2>
 
-@if (reservas().length === 0) {
-  <p>No tenés reservas realizadas.</p>
-}
+<section class="mis-reservas">
 
-@for (reserva of reservas(); track reserva.id) {
+  <h2>Mis Reservas</h2>
 
-  <div class="reserva">
+  @if (reservas().length === 0) {
+    <p class="sin-reservas">No tenés reservas realizadas.</p>
+  }
 
+  <div class="contenedor-reservas">
 
-    <h3>{{ reserva.destinoNombre }}</h3>
+    @for (reserva of reservas(); track reserva.id) {
 
-    <p>Fecha de viaje: {{ reserva.fechaViaje }}</p>
+      <div class="reserva">
 
-    <p>Pasajeros: {{ reserva.cantidadPasajeros }}</p>
+        <h3>{{ reserva.destinoNombre }}</h3>
 
-    <p>Precio: ${{ reserva.precio }}</p>
+        <div class="datos-reserva">
+          <p><strong>Fecha de viaje:</strong> {{ reserva.fechaViaje | date:'dd/MM/yyyy' }}</p>
 
-    
-    <p>Total: ${{ reserva.total ?? (reserva.precio * reserva.cantidadPasajeros) }}</p>
+          <p><strong>Pasajeros:</strong> {{ reserva.cantidadPasajeros }}</p>
 
+          <p><strong>Precio por persona:</strong> ${{ reserva.precio }}</p>
+        </div>
+
+        <div class="total-reserva">
+          Total: ${{ reserva.total ?? (reserva.precio * reserva.cantidadPasajeros) }}
+        </div>
+
+      </div>
+
+    }
 
   </div>
 
-}
+</section>

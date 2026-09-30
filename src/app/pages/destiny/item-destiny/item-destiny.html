@@ -8,11 +8,16 @@
       <p>{{ this.destino?.descripcion || 'Hermoso destino turístico' }}</p>
     }
     <span>${{ this.destino?.precio }}</span>
-    <button (click)="toggleDescripcion()">
-      {{ mostrarDescripcion ? 'Ver menos' : 'Mostrar Descripción' }}
+    <button
+    class="btn-descripcion"
+    (click)="toggleDescripcion()">
+    {{ mostrarDescripcion ? 'Ver menos' : 'Mostrar Descripción' }}
     </button>
-    <button (click)="reservar()">
+
+     <button
+     class="btn-reservar"
+     (click)="reservar()">
      Reservar
     </button>
     
-    </div>
+  </div>

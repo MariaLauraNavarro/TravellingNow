@@ -5,11 +5,11 @@ import { Destino, Destinos } from '../../services/destinos';
 import { FormsModule } from '@angular/forms';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../firebase.config';
-
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-reserva',
-  imports: [FormsModule],
+  imports: [FormsModule,Header],
   templateUrl: './reserva.html',
   styleUrl: './reserva.css',
 })
@@ -85,4 +85,4 @@ export class Reserva {
 
   alert('Reserva realizada correctamente');
 }
-}
+}  

@@ -58,3 +58,22 @@
   color: green;
    flex: 1;
 }
+.buscador {
+  width: 320px;
+  padding: 12px 16px;
+  margin: 20px 0 10px 65px;
+
+  border: 2px solid #e3dcff;
+  border-radius: 25px;
+
+  font-size: 15px;
+  outline: none;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.buscador:focus {
+  border-color: #5219e6;
+  box-shadow: 0 0 0 3px rgba(82, 25, 230, 0.12);
+}

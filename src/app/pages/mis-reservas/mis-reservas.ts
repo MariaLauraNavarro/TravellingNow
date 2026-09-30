@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../../firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Header } from '../../components/header/header';
+import { DatePipe } from '@angular/common';
 
 interface ReservaUsuario {
   id: string;
@@ -16,7 +17,7 @@ interface ReservaUsuario {
 
 @Component({
   selector: 'app-mis-reservas',
-  imports: [Header],
+  imports: [Header, DatePipe],
   templateUrl: './mis-reservas.html',
   styleUrl: './mis-reservas.css',
 })

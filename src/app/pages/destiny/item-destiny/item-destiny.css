@@ -64,3 +64,33 @@
 .button:hover{
     background-color: #0077cc;
 }
+.btn-descripcion,
+.btn-reservar {
+  margin: 8px 15px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-descripcion {
+  background-color: #ece7ff;
+  color: #5219e6;
+}
+
+.btn-descripcion:hover {
+  background-color: #dcd2ff;
+}
+
+.btn-reservar {
+  background-color: #5219e6;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.btn-reservar:hover {
+  background-color: #3f13b8;
+  transform: translateY(-2px);
+}
