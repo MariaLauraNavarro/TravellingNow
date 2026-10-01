@@ -30,16 +30,26 @@
   [(ngModel)]="email"
   readonly>
 
-<input
-  type="number"
-  min="1"
-  placeholder="Cantidad de pasajeros"
-  [(ngModel)]="cantidadPasajeros">
+<div class="campo-reserva">
+  <label for="cantidadPasajeros">Cantidad de pasajeros</label>
 
-<input
-  type="date"
-  [(ngModel)]="fechaViaje">
-  
+  <input
+    id="cantidadPasajeros"
+    type="number"
+    min="1"
+    [(ngModel)]="cantidadPasajeros">
+</div>
+
+<div class="campo-reserva">
+  <label for="fechaViaje">Fecha de viaje</label>
+
+  <input
+    id="fechaViaje"
+    type="date"
+    [(ngModel)]="fechaViaje">
+</div>
+
+
 
  <button (click)="confirmarReserva()">
   Confirmar reserva

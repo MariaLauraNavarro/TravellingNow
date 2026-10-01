@@ -8,10 +8,23 @@ import { UserService } from '../../services/user-service';
   styleUrl: './header.css',
 })
 export class Header {
+
+  menuAbierto = false;
+
  constructor(
   public userService: UserService,
   private router: Router
 ) {}
+
+ toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+
+ }  
+ cerrarMenu() {
+  this.menuAbierto = false;
+}
+ 
+
 async cerrarSesion() {
   await this.userService.cerrarSesionFirebase();
 

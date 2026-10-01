@@ -1,27 +1,76 @@
 <header>
-    <nav>
-        <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{exact:true}">Inicio</a>
 
-        <a routerLink="/Destinos" routerLinkActive="activo">Destinos</a>
+  <button class="menu-toggle" (click)="toggleMenu()">
+    ☰
+  </button>
 
-        <a routerLink="/promociones" routerLinkActive="activo"> Promociones</a>
-            
-        <a routerLink="/Opiniones" routerLinkActive="activo">Opiniones</a>
-        
-        <a routerLink="/MisReservas" routerLinkActive="activo">Mis Reservas</a>
+  <nav [class.abierto]="menuAbierto">
 
-        <a routerLink="/Contactanos" routerLinkActive="activo">Contactanos</a>
+    <a
+      routerLink="/"
+      routerLinkActive="activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="cerrarMenu()">
+      Inicio
+    </a>
 
-        <a routerLink="/Conocenos" routerLinkActive="activo">Conocenos</a>
+    <a
+      routerLink="/Destinos"
+      routerLinkActive="activo"
+      (click)="cerrarMenu()">
+      Destinos
+    </a>
 
-        @if (userService.UsuarioLogueado?.rol === 'admin') {
-        <a routerLink="/admin-usuarios" routerLinkActive="activo">
-            Admin Usuarios</a>
-        }
-        <button class="btn-salir" (click)="cerrarSesion()">
-            Salir
-        </button>
+    <a
+      routerLink="/promociones"
+      routerLinkActive="activo"
+      (click)="cerrarMenu()">
+      Promociones
+    </a>
 
+    <a
+      routerLink="/Opiniones"
+      routerLinkActive="activo"
+      (click)="cerrarMenu()">
+      Opiniones
+    </a>
 
-    </nav>
+    <a
+      routerLink="/MisReservas"
+      routerLinkActive="activo"
+      (click)="cerrarMenu()">
+      Mis Reservas
+    </a>
+
+    <a
+      routerLink="/Contactanos"
+      routerLinkActive="activo"
+      (click)="cerrarMenu()">
+      Contactanos
+    </a>
+
+    <a
+      routerLink="/Conocenos"
+      routerLinkActive="activo"
+      (click)="cerrarMenu()">
+      Conocenos
+    </a>
+
+    @if (userService.UsuarioLogueado?.rol === 'admin') {
+      <a
+        routerLink="/admin-usuarios"
+        routerLinkActive="activo"
+        (click)="cerrarMenu()">
+        Admin Usuarios
+      </a>
+    }
+
+    <button
+      class="btn-salir"
+      (click)="cerrarMenu(); cerrarSesion()">
+      Salir
+    </button>
+
+  </nav>
+
 </header>

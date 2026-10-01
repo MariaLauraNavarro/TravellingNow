@@ -35,3 +35,76 @@ nav a:hover{
   color: black;
   border-radius: 20px;
 }
+@media (max-width: 768px) {
+
+  header {
+    padding: 10px;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  nav a {
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .activo {
+    padding: 8px 10px;
+  }
+
+  .btn-salir {
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+}
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  header {
+    padding: 10px;
+  }
+
+  .menu-toggle {
+    display: block;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  nav.abierto {
+    display: flex;
+  }
+
+  nav a {
+    margin: 5px 0;
+    padding: 10px 15px;
+    width: 90%;
+    text-align: center;
+  }
+
+  .btn-salir {
+    margin: 5px 0;
+    padding: 10px 15px;
+    width: 90%;
+  }
+}
