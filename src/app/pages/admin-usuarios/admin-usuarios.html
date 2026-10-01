@@ -142,4 +142,47 @@
     }
   </tbody>
 </table>
+<section class="reservas-admin">
+
+  <h2>Reservas por usuario</h2>
+
+  @for (grupo of reservasAgrupadas; track grupo.email) {
+
+    <div class="usuario-reservas">
+
+      <h3>{{ grupo.email }}</h3>
+
+      @for (reserva of grupo.reservas; track reserva.id) {
+
+        <div class="reserva-admin-card">
+
+          <p>
+            <strong>Destino:</strong>
+            {{ reserva.destinoNombre }}
+          </p>
+
+          <p>
+            <strong>Fecha de viaje:</strong>
+            {{ reserva.fechaViaje }}
+          </p>
+
+          <p>
+            <strong>Pasajeros:</strong>
+            {{ reserva.cantidadPasajeros }}
+          </p>
+
+          <p>
+            <strong>Total:</strong>
+            ${{ reserva.total }}
+          </p>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</section>
 }

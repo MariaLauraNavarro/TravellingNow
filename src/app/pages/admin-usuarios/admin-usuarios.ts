@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { User, UserService } from '../../services/user-service';
 import { Header } from '../../components/header/header';
 import { Destino, Destinos } from '../../services/destinos';
+import { Reservas } from '../../services/reservas';
 
 @Component({
   selector: 'app-admin-usuarios',
@@ -13,6 +14,12 @@ import { Destino, Destinos } from '../../services/destinos';
 export class AdminUsuarios {
   usuarios: User[] = [];
   destinos: Destino[] = [];
+  reservas: any[] = [];
+   // Add this line
+  reservasAgrupadas: {
+  email: string;
+  reservas: any[];
+  }[] = [];
 
   usuarioEditando: User | null = null;
   destinoEditando: Destino | null = null;
@@ -20,6 +27,7 @@ export class AdminUsuarios {
   constructor(
     public userService: UserService,
     private destinosService: Destinos,
+    private reservasService: Reservas,
     private cdr: ChangeDetectorRef
   ) {
    if (typeof window !== 'undefined') {
@@ -43,6 +51,15 @@ export class AdminUsuarios {
   })
   .catch( (error) => {
     console.error('Error al obtener los destinos de Firestore:', error);
+  });
+  this.reservasService.getReservasFirestore()
+  .then((reservas) => {
+    this.reservas = reservas;
+    this.agruparReservasPorEmail();
+    this.cdr.detectChanges();
+  })
+  .catch((error) => {
+    console.error('Error al obtener las reservas de Firestore:', error);
   });
 
   }
@@ -221,7 +238,25 @@ guardarCambios(): void {
       console.error('Error al eliminar destino de Firestore:', error);
     });
 }
+  agruparReservasPorEmail(): void {
+  const grupos: { [email: string]: any[] } = {};
 
+  for (const reserva of this.reservas) {
+
+    const email = reserva.email || 'Sin email';
+
+    if (!grupos[email]) {
+      grupos[email] = [];
+    }
+
+    grupos[email].push(reserva);
+  }
+
+  this.reservasAgrupadas = Object.keys(grupos).map(email => ({
+    email: email,
+    reservas: grupos[email]
+  }));
+}
   cancelar(): void {
     this.usuarioEditando = null;
   }

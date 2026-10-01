@@ -125,3 +125,39 @@ button.agregar:hover{
 textarea {
   font-family: inherit;
 }
+.reservas-admin {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.reservas-admin h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.usuario-reservas {
+  max-width: 900px;
+  margin: 0 auto 30px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.usuario-reservas h3 {
+  margin-bottom: 20px;
+  color: #5219e6;
+  font-size: 22px;
+}
+
+.reserva-admin-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-left: 5px solid #5219e6;
+}
+
+.reserva-admin-card p {
+  margin: 6px 0;
+}
