@@ -39,15 +39,28 @@
     min="1"
     [(ngModel)]="cantidadPasajeros">
 </div>
+<div class="fechas-reserva">
 
-<div class="campo-reserva">
-  <label for="fechaViaje">Fecha de viaje</label>
+  <div class="campo-reserva">
+    <label for="fechaDesde">Desde</label>
 
-  <input
-    id="fechaViaje"
-    type="date"
-    [(ngModel)]="fechaViaje">
+    <input
+      id="fechaDesde"
+      type="date"
+      [(ngModel)]="fechaDesde">
+  </div>
+
+  <div class="campo-reserva">
+    <label for="fechaHasta">Hasta</label>
+
+    <input
+      id="fechaHasta"
+      type="date"
+      [(ngModel)]="fechaHasta">
+  </div>
+
 </div>
+
 
 
 

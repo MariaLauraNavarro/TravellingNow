@@ -171,10 +171,17 @@ async iniciarSesionFirebase(email: string, contrasena: string) {
     contrasena
   );
 
-  this.UsuarioLogueado = await this.buscarUsuarioFirestore(email);
+  const usuarioFirestore =
+    await this.buscarUsuarioFirestore(email);
+
+  if (!usuarioFirestore) {
+    throw new Error('Usuario no encontrado en Firestore');
+  }
+
+  this.UsuarioLogueado = usuarioFirestore;
 
   return credencial;
-} 
+}
 
 
   async cerrarSesionFirebase() {

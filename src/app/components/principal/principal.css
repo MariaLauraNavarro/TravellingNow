@@ -48,3 +48,30 @@ h1 {
     transform: translateX(0);
   }
 }
+@media (max-width: 768px) {
+
+  .principal {
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .contenido {
+    height: 75vh;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  h1 {
+    position: static;
+    font-size: 42px;
+    line-height: 1.1;
+    text-align: center;
+    width: 100%;
+  }
+
+  nav a {
+    margin: 0;
+    padding: 8px 10px;
+  }
+}

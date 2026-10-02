@@ -17,9 +17,12 @@
               [(ngModel)]="myUser.email"
               (input)="limpiarErrorEmail()">
             
-            @if (emailError) {
-                <span class="error-message">Formato inválido o campo requerido</span>
-            }
+        @if (passwordError) {
+         <span class="error-message">
+          {{ errorMessage || 'Mínimo 8 caracteres o campo requerido' }}
+         </span>
+        }
+
         </div>
 
         <div class="input" [class.error]="passwordError">

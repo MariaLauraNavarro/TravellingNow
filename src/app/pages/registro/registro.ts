@@ -102,7 +102,7 @@ export class Registro {
   )
   .then(() => {
 
-    this.successMessage = '¡Usuario registrado con éxito!';
+    alert('Usuario registrado correctamente');
 
     this.myUser = {} as User;
     this.confirmPassword = '';

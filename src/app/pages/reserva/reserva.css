@@ -76,3 +76,24 @@ p {
   font-weight: bold;
   font-size: 15px;
 }
+.fechas-reserva {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.fechas-reserva .campo-reserva {
+  flex: 1;
+}
+
+.campo-reserva input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .fechas-reserva {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

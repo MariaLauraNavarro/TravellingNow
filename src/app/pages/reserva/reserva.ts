@@ -20,7 +20,8 @@ export class Reserva {
   nombreApellido: string = '';
   email: string = '';
   cantidadPasajeros: number = 1;
-  fechaViaje: string = '';  
+  fechaDesde: string = '';
+  fechaHasta: string = '';  
 
  constructor(
   private route: ActivatedRoute,
@@ -60,11 +61,17 @@ export class Reserva {
     !this.destino ||
     !this.nombreApellido ||
     !this.email ||
-    !this.fechaViaje ||
+    !this.fechaDesde ||
+    !this.fechaHasta ||
     this.cantidadPasajeros < 1
   ) {
     alert('Completá todos los datos de la reserva');
     return;
+  }
+
+  if (this.fechaHasta < this.fechaDesde) {
+  alert('La fecha hasta no puede ser anterior a la fecha desde');
+  return;
   }
 
   await addDoc(
@@ -77,7 +84,10 @@ export class Reserva {
       nombreApellido: this.nombreApellido,
       email: this.email,
       cantidadPasajeros: this.cantidadPasajeros,
-      fechaViaje: this.fechaViaje,
+      
+      fechaDesde: this.fechaDesde,
+      fechaHasta: this.fechaHasta,
+
       usuarioId: usuario.uid,
       fechaReserva: serverTimestamp()
     }

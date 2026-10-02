@@ -1,21 +1,57 @@
 .promociones {
+  min-height: 100vh;
   padding: 40px 20px;
   text-align: center;
-}
+  color: white;
 
+  background-color: #0b0b0d;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='220'%3E%3Ctext x='0' y='120' font-size='52' font-weight='900' fill='%235219e6' fill-opacity='0.15' transform='rotate(-15 0 120)'%3EPROMOCI%C3%93N%3C/text%3E%3C/svg%3E");
+
+  background-repeat: repeat;
+  background-size: 360px 190px;
+}
 .promociones h1 {
   margin-bottom: 30px;
+  font-size: 38px;
+  color: white;
 }
 
 .promocion-card {
   width: 90%;
   max-width: 700px;
-  margin: 0 auto;
+
+  margin: 0 auto 30px auto;
   padding: 20px;
-  border-radius: 15px;
-  background-color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.96);
+  color: black;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45);
+
+  border: 1px solid rgba(82, 25, 230, 0.25);
 }
+.promocion-card h2 {
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.promocion-card p {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.promocion-card h3 {
+  margin-top: 10px;
+
+  font-size: 28px;
+
+  color: #5219e6;
+}
+
 
 .carrusel {
   position: relative;
@@ -54,18 +90,7 @@
   right: 10px;
 }
 
-.promocion-card h2 {
-  margin-bottom: 15px;
-}
 
-.promocion-card p {
-  margin-top: 20px;
-}
-
-.promocion-card h3 {
-  margin-top: 10px;
-  font-size: 24px;
-}
 .btn-reservar {
   margin: 8px 15px;
   padding: 10px 14px;

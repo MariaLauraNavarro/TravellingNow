@@ -10,7 +10,9 @@ interface ReservaUsuario {
   destinoNombre: string;
   precio: number;
   cantidadPasajeros: number;
-  fechaViaje: string;
+  fechaDesde?: string;
+  fechaHasta?: string;
+  fechaViaje?: string;
   fechaReserva?: any;
   total?: number;
 }
@@ -59,6 +61,8 @@ export class MisReservas {
       destinoNombre: datos['destinoNombre'],
       precio: datos['precio'],
       cantidadPasajeros: datos['cantidadPasajeros'],
+      fechaDesde: datos['fechaDesde'],
+      fechaHasta: datos['fechaHasta'],
       fechaViaje: datos['fechaViaje'],
       fechaReserva: datos['fechaReserva'],
       total: datos['total'],

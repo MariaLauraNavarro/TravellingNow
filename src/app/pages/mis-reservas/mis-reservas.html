@@ -17,7 +17,15 @@
         <h3>{{ reserva.destinoNombre }}</h3>
 
         <div class="datos-reserva">
-          <p><strong>Fecha de viaje:</strong> {{ reserva.fechaViaje | date:'dd/MM/yyyy' }}</p>
+          <p>
+  <strong>Desde:</strong>
+   {{ reserva.fechaDesde | date:'dd/MM/yyyy' }}
+  </p>
+
+   <p>
+    <strong>Hasta:</strong>
+    {{ reserva.fechaHasta | date:'dd/MM/yyyy' }}
+   </p>
 
           <p><strong>Pasajeros:</strong> {{ reserva.cantidadPasajeros }}</p>
 

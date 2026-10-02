@@ -46,13 +46,35 @@ export class Login {
         this.myUser.email,
         this.myUser.contrasena
       )
-      .then(() => {
-        this.router.navigate(['/home']);
+     .then(() => {
+      alert('Usuario logueado correctamente');
+      this.router.navigate(['/home']);
       })
       .catch((error) => {
-        console.error('Error de Firebase:', error);
-        this.errorMessage = 'Email o contraseña incorrectos';
-      });
+  console.error('Error de Firebase:', error);
+
+  if (
+    error.code === 'auth/wrong-password' ||
+    error.code === 'auth/invalid-credential'
+  ) {
+    this.passwordError = true;
+    this.errorMessage = 'Contraseña incorrecta. Volvé a ingresarla.';
+  }
+
+  else if (error.code === 'auth/user-not-found') {
+    this.emailError = true;
+    this.errorMessage = 'No existe un usuario registrado con ese email.';
+  }
+
+  else if (error.code === 'auth/invalid-email') {
+    this.emailError = true;
+    this.errorMessage = 'El email ingresado no es válido.';
+  }
+
+  else {
+    this.errorMessage = 'No se pudo iniciar sesión. Intentá nuevamente.';
+  }
+});
   }
 
   limpiarErrorEmail() {
