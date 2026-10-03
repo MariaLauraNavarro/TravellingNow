@@ -30,6 +30,6 @@ async cerrarSesion() {
 
   this.userService.UsuarioLogueado = undefined;
 
-  this.router.navigate(['/Ingresar']);
+  this.router.navigate(['/']);
 }
 }
