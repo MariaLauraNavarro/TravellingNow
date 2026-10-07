@@ -69,6 +69,12 @@
 }
    <h2>Administrar Precios de Destinos</h2>
 
+
+  <button class="agregar" (click)="asignarCuposIniciales()">
+  Asignar 10 cupos iniciales
+  </button>
+
+
 <button class="agregar" (click)="nuevoDestino()">
   Agregar Destino
 </button>
@@ -108,6 +114,7 @@
     <tr>
       <th>Destino</th>
       <th>Precio</th>
+      <th>Cupos disponibles</th>
       <th>Acción</th>
     </tr>
   </thead>
@@ -122,8 +129,18 @@
             type="number"
             [(ngModel)]="destino.precio">
         </td>
-
         <td>
+    <input
+      type="number"
+      min="0"
+      step="1"
+      [(ngModel)]="destino.cupos">
+
+    <button (click)="cambiarCupos(destino)">
+     Guardar cupos
+    </button>
+      </td>
+      <td>
           <button
           class="btn-editar"
           (click)="editarDestino(destino)">

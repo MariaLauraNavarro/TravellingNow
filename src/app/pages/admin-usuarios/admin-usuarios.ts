@@ -225,6 +225,24 @@ guardarCambios(): void {
       console.error('Error al actualizar el precio en Firestore:', error);
     });
 }
+cambiarCupos(destino: Destino): void {
+  const cupos = destino.cupos;
+
+  if (cupos === undefined || !Number.isInteger(cupos) || cupos < 0) {
+    alert('Ingresá una cantidad válida de cupos');
+    return;
+  }
+
+  this.destinosService
+    .editarCuposFirestore(String(destino.id), cupos)
+    .then(() => {
+      alert('Cupos actualizados correctamente');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar los cupos:', error);
+      alert('No se pudieron actualizar los cupos');
+    });
+}
   eliminarDestino(id: number | string): void {
   this.destinosService.eliminarDestinoFirestore(String(id))
     .then(() => {
@@ -260,5 +278,17 @@ guardarCambios(): void {
   cancelar(): void {
     this.usuarioEditando = null;
   }
+  async asignarCuposIniciales() {
+  try {
+    const cantidad =
+      await this.destinosService.inicializarCuposFirestore();
+
+    alert(`Se asignaron cupos a ${cantidad} destinos`);
+
+  } catch (error) {
+    console.error('Error al asignar cupos:', error);
+    alert('No se pudieron asignar los cupos');
+  }
+}
 }
 

@@ -44,3 +44,13 @@ __screenshots__/
 Thumbs.db
 /backend/node_modules
 .firebase/
+# Credenciales privadas y variables de entorno
+.env
+.env.*
+!.env.example
+*service-account*.json
+*serviceAccount*.json
+/backend/credenciales/
+/backend/node_modules/
+# Registros del emulador de Firebase
+*-debug.log

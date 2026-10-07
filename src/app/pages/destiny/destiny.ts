@@ -5,11 +5,12 @@ import { ItemDestiny } from "./item-destiny/item-destiny";
 import { Footer } from '../../components/footer/footer';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../components/header/header';
-
+import { FiltrarDestinosPipe } from '../../pipes/filtrar-destinos-pipe';
 
 
 @Component({
-  imports:[ItemDestiny,Footer,FormsModule,Header],
+  imports: [ItemDestiny, Footer, FormsModule, Header, FiltrarDestinosPipe],
+  
   templateUrl: './destiny.html',
   styleUrl: './destiny.css',
 })

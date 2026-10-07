@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc, writeBatch } from 'firebase/firestore';
 import { db } from '../firebase.config';
 
 export interface Destino {
@@ -10,6 +10,7 @@ export interface Destino {
   descripcion: string;
   precio: number;
   imagen: string;
+  cupos?: number;
 }
 
 @Injectable({
@@ -192,6 +193,17 @@ async editarPrecioFirestore(id: string, nuevoPrecio: number) {
     precio: nuevoPrecio
   });
 }
+async editarCuposFirestore(id: string, nuevosCupos: number) {
+  if (!Number.isInteger(nuevosCupos) || nuevosCupos < 0) {
+    throw new Error('Los cupos deben ser un número entero mayor o igual a 0');
+  }
+
+  const referenciaDestino = doc(db, 'destinos', id);
+
+  await updateDoc(referenciaDestino, {
+    cupos: nuevosCupos
+  });
+}
 async editarDestinoFirestore(
   id: string,
   cambios: Partial<Omit<Destino, 'id'>>
@@ -232,5 +244,23 @@ async eliminarDestinoFirestore(id: string) {
   if (destino) {
     destino.precio = nuevoPrecio;
   }
+}
+async inicializarCuposFirestore() {
+  const snapshot = await getDocs(collection(db, 'destinos'));
+  const batch = writeBatch(db);
+  let cantidad = 0;
+
+  snapshot.docs.forEach(documento => {
+    if (documento.data()['cupos'] === undefined) {
+      batch.update(documento.ref, { cupos: 10 });
+      cantidad++;
+    }
+  });
+
+  if (cantidad > 0) {
+    await batch.commit();
+  }
+
+  return cantidad;
 }
 }

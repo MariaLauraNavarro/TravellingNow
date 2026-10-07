@@ -3,8 +3,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Destino, Destinos } from '../../services/destinos';
 import { FormsModule } from '@angular/forms';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from '../../firebase.config';
+import { auth } from '../../firebase.config';
 import { Header } from '../../components/header/header';
 
 @Component({
@@ -20,6 +19,8 @@ export class Reserva {
   nombreApellido: string = '';
   email: string = '';
   cantidadPasajeros: number = 1;
+  procesandoReserva: boolean = false;
+  idSolicitud: string | null = null;
   fechaDesde: string = '';
   fechaHasta: string = '';  
 
@@ -48,7 +49,8 @@ export class Reserva {
   }
 });
  }
- async confirmarReserva() {
+
+async confirmarReserva() {
 
   const usuario = auth.currentUser;
 
@@ -59,10 +61,11 @@ export class Reserva {
 
   if (
     !this.destino ||
-    !this.nombreApellido ||
+    !this.nombreApellido.trim() ||
     !this.email ||
     !this.fechaDesde ||
     !this.fechaHasta ||
+    !Number.isInteger(this.cantidadPasajeros) ||
     this.cantidadPasajeros < 1
   ) {
     alert('Completá todos los datos de la reserva');
@@ -70,29 +73,62 @@ export class Reserva {
   }
 
   if (this.fechaHasta < this.fechaDesde) {
-  alert('La fecha hasta no puede ser anterior a la fecha desde');
-  return;
+    alert('La fecha hasta no puede ser anterior a la fecha desde');
+    return;
   }
-
-  await addDoc(
-    collection(db, 'reservas'),
-    {
-      destinoId: this.destino.id,
-      destinoNombre: this.destino.nombre,
-      precio: this.destino.precio,
-      total: this.destino.precio * this.cantidadPasajeros,
-      nombreApellido: this.nombreApellido,
-      email: this.email,
-      cantidadPasajeros: this.cantidadPasajeros,
-      
-      fechaDesde: this.fechaDesde,
-      fechaHasta: this.fechaHasta,
-
-      usuarioId: usuario.uid,
-      fechaReserva: serverTimestamp()
-    }
-  );
-
-  alert('Reserva realizada correctamente');
+   if (this.procesandoReserva) {
+  return;
 }
-}  
+
+this.procesandoReserva = true;
+
+if (!this.idSolicitud) {
+  this.idSolicitud = crypto.randomUUID();
+}
+
+try {
+  const token = await usuario.getIdToken();
+    const respuesta = await fetch('http://localhost:3000/reservas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        idSolicitud: this.idSolicitud,
+        destinoId: String(this.destino.id),
+        nombreApellido: this.nombreApellido,
+        cantidadPasajeros: this.cantidadPasajeros,
+        fechaDesde: this.fechaDesde,
+        fechaHasta: this.fechaHasta
+      })
+    });
+
+    const resultado = await respuesta.json();
+
+    if (!respuesta.ok) {
+      const mensajes: Record<string, string> = {
+        CUPOS_INSUFICIENTES: 'No quedan suficientes cupos',
+        CUPOS_NO_CONFIGURADOS: 'Este destino no tiene cupos configurados',
+        DESTINO_NO_EXISTE: 'El destino no existe',
+        PRECIO_INVALIDO: 'El precio del destino no es válido'
+      };
+
+      alert(mensajes[resultado.mensaje] || resultado.mensaje ||
+        'No se pudo realizar la reserva');
+      return;
+    }
+
+    alert('Reserva realizada correctamente');
+    this.idSolicitud = null;
+
+  } catch (error) {
+    console.error('Error al confirmar la reserva:', error);
+    alert('No se pudo conectar con el servidor');
+  } finally {
+    this.procesandoReserva = false;
+  }
+}
+}
+ 
+  

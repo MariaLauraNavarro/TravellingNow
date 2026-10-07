@@ -46,17 +46,20 @@ service cloud.firestore {
       || isAdmin()
     );
 }
-
 match /reservas/{reservaId} {
 
-  allow create: if request.auth != null
-    && request.resource.data.usuarioId == request.auth.uid;
+  // Solo el backend puede crear reservas.
+  allow create: if false;
 
-  allow read, update, delete: if request.auth != null
+  // Cada usuario ve sus reservas y el administrador ve todas.
+  allow read: if request.auth != null
     && (
       resource.data.usuarioId == request.auth.uid
       || isAdmin()
     );
+
+  // Impedir modificaciones directas desde Angular.
+  allow update, delete: if false;
 }
 match /consultas/{consultaId} {
 

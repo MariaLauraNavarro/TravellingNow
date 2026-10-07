@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
-
+import { routerReservas } from './reservas.js';
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/reservas', routerReservas);
 const PORT = 3000;
 
 app.get("/", (req, res) => {

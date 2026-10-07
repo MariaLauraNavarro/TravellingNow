@@ -60,13 +60,12 @@
   </div>
 
 </div>
-
-
-
-
- <button (click)="confirmarReserva()">
+<button
+  (click)="confirmarReserva()"
+  [disabled]="procesandoReserva">
   Confirmar reserva
- </button>
+</button>
+ 
 
 </div>
 }
