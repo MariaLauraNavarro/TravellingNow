@@ -88,7 +88,7 @@ if (!this.idSolicitud) {
 
 try {
   const token = await usuario.getIdToken();
-    const respuesta = await fetch('http://localhost:3000/reservas', {
+    const respuesta = await fetch('https://travelling-now.vercel.app/reservas', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
