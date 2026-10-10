@@ -94,3 +94,29 @@
   background-color: #3f13b8;
   transform: translateY(-2px);
 }
+.card.agotado {
+  background-color: #e0e0e0;
+  opacity: 0.75;
+}
+
+.card.agotado img {
+  filter: grayscale(100%);
+}
+
+.texto-agotado {
+  color: #b00020;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.btn-reservar:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-reservar:disabled:hover {
+  background-color: #999;
+  transform: none;
+}

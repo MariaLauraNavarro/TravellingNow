@@ -1,23 +1,30 @@
+<div class="card" [class.agotado]="destino?.cupos === 0">
 
-<div class="card">
+  <img [src]="destino?.imagen" [alt]="destino?.nombre">
 
-<img [src]="this.destino ?.imagen" [alt]="this.destino?.nombre">
+  <h3>{{ destino?.nombre }}</h3>
 
-    <h3>{{ this.destino?.nombre }}</h3>
-    @if (mostrarDescripcion) {
-      <p>{{ this.destino?.descripcion || 'Hermoso destino turístico' }}</p>
-    }
-    <span>${{ this.destino?.precio }}</span>
-    <button
+  @if (mostrarDescripcion) {
+    <p>{{ destino?.descripcion || 'Hermoso destino turístico' }}</p>
+  }
+
+  <span>${{ destino?.precio }}</span>
+
+  @if (destino?.cupos === 0) {
+    <p class="texto-agotado">AGOTADO</p>
+  }
+
+  <button
     class="btn-descripcion"
     (click)="toggleDescripcion()">
     {{ mostrarDescripcion ? 'Ver menos' : 'Mostrar Descripción' }}
-    </button>
+  </button>
 
-     <button
-     class="btn-reservar"
-     (click)="reservar()">
-     Reservar
-    </button>
-    
-  </div>
+  <button
+    class="btn-reservar"
+    (click)="reservar()"
+    [disabled]="destino?.cupos === 0">
+    {{ destino?.cupos === 0 ? 'Agotado' : 'Reservar' }}
+  </button>
+
+</div>
