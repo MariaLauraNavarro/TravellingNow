@@ -1,0 +1,111 @@
+.admin-consultas-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.admin-consultas-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.sin-consultas {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+
+.consulta-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.consulta-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #5219e6;
+}
+
+.consulta-card p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.consulta-card strong {
+  color: #222;
+}
+
+.estado {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.respondida {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.acciones-consulta {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-respondida,
+.btn-eliminar {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-respondida {
+  background-color: #5219e6;
+  color: white;
+}
+
+.btn-respondida:hover {
+  background-color: #3f13b8;
+}
+
+.btn-eliminar {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #b52a37;
+}
+
+@media (max-width: 600px) {
+  .admin-consultas-container {
+    padding: 12px;
+  }
+
+  .consulta-card {
+    padding: 15px;
+  }
+
+  .acciones-consulta {
+    flex-direction: column;
+  }
+
+  .btn-respondida,
+  .btn-eliminar {
+    width: 100%;
+  }
+}

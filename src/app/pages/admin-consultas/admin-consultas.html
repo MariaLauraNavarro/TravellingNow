@@ -1,0 +1,65 @@
+<app-header></app-header>
+
+<div class="admin-consultas-container">
+
+  <h2>Consultas recibidas</h2>
+
+  @if (consultas.length === 0) {
+    <p class="sin-consultas">No hay consultas recibidas.</p>
+  }
+
+  @for (consulta of consultas; track consulta.id) {
+
+    <div class="consulta-card">
+
+      <h3>{{ consulta.asunto }}</h3>
+
+      <p>
+        <strong>Nombre:</strong>
+        {{ consulta.nombreApellido }}
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        {{ consulta.email }}
+      </p>
+
+      <p>
+        <strong>Mensaje:</strong>
+        {{ consulta.mensaje }}
+      </p>
+
+      <p>
+        <strong>Fecha:</strong>
+        {{ consulta.fecha?.toDate() | date:'dd/MM/yyyy HH:mm' }}
+      </p>
+
+      @if (consulta.estado === 'respondida') {
+        <p class="estado respondida">Respondida</p>
+      } @else {
+        <p class="estado pendiente">Pendiente</p>
+      }
+
+      <div class="acciones-consulta">
+
+        @if (consulta.estado !== 'respondida') {
+          <button
+            class="btn-respondida"
+            (click)="marcarRespondida(consulta)">
+            Marcar como respondida
+          </button>
+        }
+
+        <button
+          class="btn-eliminar"
+          (click)="eliminarConsulta(consulta)">
+          Eliminar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

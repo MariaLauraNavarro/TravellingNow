@@ -12,7 +12,7 @@ import { AdminUsuarios } from './pages/admin-usuarios/admin-usuarios';
 import { Opiniones } from './pages/opiniones/opiniones';
 import { Reserva } from './pages/reserva/reserva';
 import { MisReservas } from './pages/mis-reservas/mis-reservas';
-
+import { AdminConsultas } from './pages/admin-consultas/admin-consultas';
 export const routes: Routes = [
 
   { path: '', component: Principal },
@@ -41,6 +41,11 @@ export const routes: Routes = [
     path: 'admin-usuarios',
     component: AdminUsuarios,
     canActivate: [adminGuard]
+  },
+  {
+  path: 'admin-consultas',
+  component: AdminConsultas,
+  canActivate: [adminGuard]
   },
 
   {

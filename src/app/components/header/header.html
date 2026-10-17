@@ -56,14 +56,23 @@
       Conocenos
     </a>
 
-    @if (userService.UsuarioLogueado?.rol === 'admin') {
-      <a
-        routerLink="/admin-usuarios"
-        routerLinkActive="activo"
-        (click)="cerrarMenu()">
-        Admin Usuarios
-      </a>
-    }
+   @if (userService.UsuarioLogueado?.rol === 'admin') {
+
+  <a
+    routerLink="/admin-usuarios"
+    routerLinkActive="activo"
+    (click)="cerrarMenu()">
+    Admin Usuarios
+  </a>
+
+  <a
+    routerLink="/admin-consultas"
+    routerLinkActive="activo"
+    (click)="cerrarMenu()">
+    Admin Consultas
+  </a>
+
+} 
 
     <button
       class="btn-salir"
