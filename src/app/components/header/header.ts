@@ -28,8 +28,6 @@ export class Header {
 async cerrarSesion() {
   await this.userService.cerrarSesionFirebase();
 
-  this.userService.UsuarioLogueado = undefined;
-
   this.router.navigate(['/']);
 }
 }

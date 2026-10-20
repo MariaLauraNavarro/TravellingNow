@@ -47,7 +47,7 @@ export class Login {
         this.myUser.contrasena
       )
      .then(() => {
-      alert('Usuario logueado correctamente');
+    
       this.router.navigate(['/home']);
       })
       .catch((error) => {

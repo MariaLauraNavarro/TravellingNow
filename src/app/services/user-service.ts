@@ -185,7 +185,8 @@ async iniciarSesionFirebase(email: string, contrasena: string) {
 
 
   async cerrarSesionFirebase() {
-  return await signOut(auth);
+   await signOut(auth);
+  this.UsuarioLogueado = undefined;
 }
 async restaurarSesionFirebase(): Promise<User | undefined> {
 
